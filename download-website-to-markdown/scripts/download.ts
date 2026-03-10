@@ -69,7 +69,14 @@ async function main() {
     process.exit(1);
   }
 
-  const output = resolveOutput(outputArg ?? deriveFilename(url));
+  const isDir =
+    outputArg &&
+    (outputArg.endsWith("/") ||
+      (fs.existsSync(outputArg) && fs.statSync(outputArg).isDirectory()));
+  const rawOutput = isDir
+    ? path.join(outputArg, deriveFilename(url))
+    : (outputArg ?? deriveFilename(url));
+  const output = resolveOutput(rawOutput);
 
   console.log(`Fetching ${url} (headless browser) ...`);
   let html: string;
