@@ -163,10 +163,16 @@ async function main() {
   }
 
   const markdown = fs.readFileSync(filePath, "utf-8");
-  const h1Match = markdown.match(/^#\s+(.+)/m);
-  const title = titleArg ?? h1Match?.[1]?.trim() ?? path.basename(filePath, path.extname(filePath));
+
+  // Strip YAML front matter and extract title from it
+  const fmMatch = markdown.match(/^---\n([\s\S]*?)\n---\n?/);
+  const withoutFm = fmMatch ? markdown.slice(fmMatch[0].length) : markdown;
+  const fmTitle = fmMatch?.[1].match(/^title:\s*(.+)$/m)?.[1]?.trim();
+
+  const h1Match = withoutFm.match(/^#\s+(.+)/m);
+  const title = titleArg ?? fmTitle ?? h1Match?.[1]?.trim() ?? path.basename(filePath, path.extname(filePath));
   // Strip the first H1 from body — Confluence uses the title separately
-  const body = h1Match ? markdown.replace(/^#\s+.+\n?/, "") : markdown;
+  const body = h1Match ? withoutFm.replace(/^#\s+.+\n?/, "") : withoutFm;
   const toc = '<ac:structured-macro ac:name="toc" ac:schema-version="1"/>';
   const htmlBody = toc + await marked(body);
 

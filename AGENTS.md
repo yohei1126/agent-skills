@@ -6,55 +6,68 @@ This repository is a collection of reusable agent skills following the [Agent Sk
 
 ```
 agent_skills/
-├── AGENTS.md                          # This file
+├── AGENTS.md                          # This file — agent index
+├── README.md                          # Human-readable overview
 ├── package.json                       # Shared Node.js dependencies for all skills
 ├── .env                               # Credentials (git-ignored, not readable by Claude)
 ├── .env.example                       # Credential template
 ├── .gitignore                         # Ignores: outputs/, reports/, node_modules/, .env
 ├── .claudeignore                      # Prevents Claude from reading .env
+├── docs/                              # Detailed reference documentation
+│   ├── setup.md                       # Installation and credential setup
+│   ├── download-website-to-markdown.md
+│   └── confluence-operations.md
 ├── outputs/                           # Downloaded pages and generated content (git-ignored)
 │   └── reference-docs/               # Fetched reference documentation
 ├── reports/                           # Markdown files uploaded to Confluence (git-ignored)
 ├── download-website-to-markdown/
-│   ├── SKILL.md
+│   ├── SKILL.md                       # Skill definition (frontmatter + agent instructions)
 │   └── scripts/
 │       └── download.ts               # Playwright-based downloader
-└── upload-markdown-to-confluence/
-    ├── SKILL.md
+└── confluence-operations/
+    ├── SKILL.md                       # Skill definition (frontmatter + agent instructions)
     └── scripts/
-        └── upload.ts                 # Confluence REST API uploader
+        ├── upload.ts                 # Confluence REST API uploader
+        └── download.ts              # Confluence REST API downloader (page → Markdown)
 ```
 
-## Shared dependencies
+## Available skills
 
-All scripts share a single `package.json` at the `agent_skills/` root. Install once:
+### download-website-to-markdown
+
+Downloads a URL to a local Markdown file using a headless Chromium browser.
+Full reference: [docs/download-website-to-markdown.md](docs/download-website-to-markdown.md)
+
+```bash
+cd agent_skills
+npx tsx download-website-to-markdown/scripts/download.ts <url> [output]
+```
+
+### confluence-operations
+
+Uploads a local Markdown file to a Confluence page (create or update).
+Full reference: [docs/confluence-operations.md](docs/confluence-operations.md)
+
+```bash
+cd agent_skills
+npx tsx confluence-operations/scripts/upload.ts <file.md> [--title "..."] [--parent-id <id>] [--page-id <id>]
+```
+
+## Setup
+
+See [docs/setup.md](docs/setup.md) for full installation and credential setup.
+
+**Quick setup:**
 
 ```bash
 cd agent_skills
 npm install
 npx playwright install chromium
-```
-
-Key dependencies:
-- `playwright` — headless Chromium for JS-rendered pages
-- `turndown` — HTML → Markdown conversion
-- `marked` — Markdown → HTML conversion (for Confluence upload)
-- `dotenv` — loads `.env` from `agent_skills/` root
-- `tsx` — runs TypeScript scripts directly
-
-## Environment variables
-
-Copy `.env.example` to `.env` and fill in your credentials:
-
-```
-CONFLUENCE_BASE_URL=https://yourorg.atlassian.net
-CONFLUENCE_EMAIL=you@example.com
-CONFLUENCE_API_TOKEN=your_api_token
-CONFLUENCE_SPACE_KEY=MYSPACE
+cp .env.example .env   # then fill in Confluence credentials
 ```
 
 ## Creating or modifying skills
 
 Follow the specification at https://agentskills.io/specification.
 
-Each skill directory must contain a `SKILL.md` with YAML frontmatter (`name`, `description`, `allowed-tools`, etc.) followed by instructions for the agent.
+Each skill directory must contain a `SKILL.md` with YAML front matter (`name`, `description`, `allowed-tools`, etc.) followed by instructions for the agent.
