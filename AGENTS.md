@@ -24,11 +24,13 @@ agent_skills/
 │   ├── SKILL.md                       # Skill definition (frontmatter + agent instructions)
 │   └── scripts/
 │       └── download.ts               # Playwright-based downloader
-└── confluence-operations/
-    ├── SKILL.md                       # Skill definition (frontmatter + agent instructions)
-    └── scripts/
-        ├── upload.ts                 # Confluence REST API uploader
-        └── download.ts              # Confluence REST API downloader (page → Markdown)
+├── confluence-operations/
+│   ├── SKILL.md                       # Skill definition (frontmatter + agent instructions)
+│   └── scripts/
+│       ├── upload.ts                 # Confluence REST API uploader
+│       └── download.ts              # Confluence REST API downloader (page → Markdown)
+└── sales-agent/
+    └── SKILL.md                       # Skill definition (frontmatter + agent instructions)
 ```
 
 ## Available skills
@@ -45,13 +47,19 @@ npx tsx download-website-to-markdown/scripts/download.ts <url> [output]
 
 ### confluence-operations
 
-Uploads a local Markdown file to a Confluence page (create or update).
+Upload or download Confluence pages as local Markdown files.
 Full reference: [docs/confluence-operations.md](docs/confluence-operations.md)
 
 ```bash
 cd agent_skills
 npx tsx confluence-operations/scripts/upload.ts <file.md> [--title "..."] [--parent-id <id>] [--page-id <id>]
+npx tsx confluence-operations/scripts/download.ts <page-id> [output]
 ```
+
+### sales-agent
+
+Sales intelligence skill — query deals, pipeline, rep performance, and conversation transcripts via Cortex Agent and Cortex Analyst.
+Uses built-in Cortex Code tools only (no custom scripts required).
 
 ## Setup
 
