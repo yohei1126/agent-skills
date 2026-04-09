@@ -61,7 +61,7 @@ User asks a sales question
 The agent has two built-in tools:
 
 1. **Sales_metrics_model** (Cortex Analyst — text-to-SQL)
-   - Semantic model: `@SALES_INTELLIGENCE.DATA.DATA/sales_metrics_model.yaml`
+   - Semantic model: `@SALES_INTELLIGENCE.DATA.MODELS/sales_metrics_model.yaml`
    - Answers structured questions about deals, revenue, win rates, pipeline
 2. **Sales_conversation_search** (Cortex Search)
    - Search service: `SALES_INTELLIGENCE.DATA.SALES_CONVERSATION_SEARCH`
@@ -91,7 +91,7 @@ When the user asks a sales-related question, determine which tool to use based o
 Use `cortex analyst query` with the semantic model:
 
 ```bash
-cortex analyst query "<question>" --model="@SALES_INTELLIGENCE.DATA.DATA/sales_metrics_model.yaml"
+cortex analyst query "<question>" --model="@SALES_INTELLIGENCE.DATA.MODELS/sales_metrics_model.yaml"
 ```
 
 If the Analyst returns SQL, you can also run it directly via `snowflake_sql_execute` to get the raw data, or modify the SQL for follow-up analysis.
@@ -154,7 +154,7 @@ Assess a specific sales rep's performance with both quantitative metrics and qua
 
 Query win rate, total revenue, deal count, and average deal value for the rep:
 ```bash
-cortex analyst query "What is <rep_name>'s win rate, total revenue, number of deals, and average deal value?" --model="@SALES_INTELLIGENCE.DATA.DATA/sales_metrics_model.yaml"
+cortex analyst query "What is <rep_name>'s win rate, total revenue, number of deals, and average deal value?" --model="@SALES_INTELLIGENCE.DATA.MODELS/sales_metrics_model.yaml"
 ```
 
 If 0 rows returned, verify `<rep_name>` matches a valid sales rep (check `sample_values` for SALES_REP in the semantic model, or run `SELECT DISTINCT SALES_REP FROM SALES_INTELLIGENCE.DATA.SALES_METRICS`). Inform the user and stop if no match.
@@ -204,7 +204,7 @@ Evaluate the current sales pipeline for risk and opportunity.
 
 Query all pending deals:
 ```bash
-cortex analyst query "Show all pending deals with their customer name, deal value, sales rep, and product line, sorted by deal value descending" --model="@SALES_INTELLIGENCE.DATA.DATA/sales_metrics_model.yaml"
+cortex analyst query "Show all pending deals with their customer name, deal value, sales rep, and product line, sorted by deal value descending" --model="@SALES_INTELLIGENCE.DATA.MODELS/sales_metrics_model.yaml"
 ```
 
 If 0 rows returned, inform the user there are no pending deals and stop.
@@ -247,7 +247,7 @@ Generate an executive summary of sales performance for a given time period.
 
 Query total revenue, deal count, and average deal value for the period:
 ```bash
-cortex analyst query "What is the total revenue, number of closed deals, and average deal value for deals closed between <start_date> and <end_date>?" --model="@SALES_INTELLIGENCE.DATA.DATA/sales_metrics_model.yaml"
+cortex analyst query "What is the total revenue, number of closed deals, and average deal value for deals closed between <start_date> and <end_date>?" --model="@SALES_INTELLIGENCE.DATA.MODELS/sales_metrics_model.yaml"
 ```
 
 If 0 rows returned, inform the user no closed deals exist in the requested range. Offer to widen the range or query all data.
@@ -321,5 +321,5 @@ For ad-hoc questions (not workflows), output the query results directly with bri
 
 ## Notes
 
-- The semantic model YAML is stored on a Snowflake stage at `@SALES_INTELLIGENCE.DATA.DATA/sales_metrics_model.yaml`. The local copy is at `snowflake-cortex-agent-evaluations-sample/sfguide-getting-started-with-cortex-agents/sales_metrics_model.yaml`.
+- The semantic model YAML is stored on a Snowflake stage at `@SALES_INTELLIGENCE.DATA.MODELS/sales_metrics_model.yaml`. The local copy is at `snowflake-cortex-agent-evaluations-sample/sfguide-getting-started-with-cortex-agents/sales_metrics_model.yaml`.
 - This skill uses only built-in Cortex Code tools (`cortex analyst query`, `snowflake_sql_execute`, and the bundled `$cortex-agent` skill). No custom scripts or manual token management is needed.
