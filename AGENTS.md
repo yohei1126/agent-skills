@@ -29,8 +29,12 @@ agent_skills/
 │   └── scripts/
 │       ├── upload.ts                 # Confluence REST API uploader
 │       └── download.ts              # Confluence REST API downloader (page → Markdown)
-└── sales-agent/
-    └── SKILL.md                       # Skill definition (frontmatter + agent instructions)
+├── sales-agent/
+│   └── SKILL.md                       # Skill definition (frontmatter + agent instructions)
+└── pdf-to-markdown/
+    ├── SKILL.md                       # Skill definition (frontmatter + agent instructions)
+    └── scripts/
+        └── convert.ts                # pdftotext-based PDF converter
 ```
 
 ## Available skills
@@ -61,6 +65,15 @@ npx tsx confluence-operations/scripts/download.ts <page-id> [output]
 Sales intelligence skill — query deals, pipeline, rep performance, and conversation transcripts via Cortex Agent and Cortex Analyst.
 Uses built-in Cortex Code tools only (no custom scripts required).
 
+### pdf-to-markdown
+
+Converts a PDF file to Markdown using `pdftotext` (poppler). Outputs clean Markdown with YAML front matter and heading detection heuristics. Requires `brew install poppler`.
+
+```bash
+cd agent_skills
+npx tsx pdf-to-markdown/scripts/convert.ts <input.pdf> [output.md]
+```
+
 ## Setup
 
 See [docs/setup.md](docs/setup.md) for full installation and credential setup.
@@ -76,6 +89,25 @@ cp .env.example .env   # then fill in Confluence credentials
 
 ## Creating or modifying skills
 
-Follow the specification at https://agentskills.io/specification.
+Follow the [Agent Skills open specification](https://agentskills.io/specification). Key rules:
 
-Each skill directory must contain a `SKILL.md` with YAML front matter (`name`, `description`, `allowed-tools`, etc.) followed by instructions for the agent.
+- Each skill lives in its own directory. The directory name must exactly match the `name` field in `SKILL.md`.
+- `SKILL.md` must have YAML frontmatter with at minimum `name` and `description`, followed by Markdown instructions.
+- `name`: lowercase letters, numbers, and hyphens only; no consecutive hyphens; max 64 characters.
+- `description`: describes what the skill does and when to use it; max 1024 characters.
+- Optional frontmatter fields: `license`, `compatibility`, `metadata`, `allowed-tools`.
+
+### Validating a skill
+
+Use `npx skills-ref validate` to check a skill against the spec before committing:
+
+```bash
+cd agent-skills
+npx skills-ref validate ./<skill-name>
+```
+
+Validate all skills at once:
+
+```bash
+for d in */; do npx skills-ref validate "./${d%/}" 2>&1; done
+```
