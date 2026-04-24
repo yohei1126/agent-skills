@@ -16,15 +16,16 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
 
-function deriveOutput(input: string): string {
+export function deriveOutput(input: string): string {
   const base = path.basename(input, path.extname(input));
   const dir = path.dirname(input);
   return path.join(dir, `${base}.md`);
 }
 
-function resolveOutput(output: string): string {
+export function resolveOutput(output: string): string {
   if (!fs.existsSync(output)) return output;
   const ext = path.extname(output);
   const base = output.slice(0, -ext.length);
@@ -33,7 +34,7 @@ function resolveOutput(output: string): string {
   return `${base}-${i}${ext}`;
 }
 
-function pdfToText(input: string): string {
+export function pdfToText(input: string): string {
   // -layout preserves column layout; -nopgbrk removes form-feed page breaks
   return execFileSync("pdftotext", ["-layout", "-nopgbrk", input, "-"], {
     encoding: "utf-8",
@@ -41,7 +42,7 @@ function pdfToText(input: string): string {
   });
 }
 
-function textToMarkdown(text: string, sourceFile: string): string {
+export function textToMarkdown(text: string, sourceFile: string): string {
   const lines = text.split("\n");
   const processed: string[] = [];
 
@@ -115,4 +116,6 @@ async function main() {
   console.log(`Saved: ${output}`);
 }
 
-main();
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}

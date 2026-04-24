@@ -2,6 +2,9 @@
   "name": "agent-skills",
   "version": "1.0.0",
   "private": true,
+  "scripts": {
+    "test": "npx tsx pdf-to-markdown/tests/convert.test.ts"
+  },
   "dependencies": {
     "dotenv": "^16.0.0",
     "marked": "^15.0.0",
