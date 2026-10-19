@@ -31,10 +31,13 @@ agent_skills/
 │       └── download.ts              # Confluence REST API downloader (page → Markdown)
 ├── sales-agent/
 │   └── SKILL.md                       # Skill definition (frontmatter + agent instructions)
-└── pdf-to-markdown/
+├── pdf-to-markdown/
+│   ├── SKILL.md                       # Skill definition (frontmatter + agent instructions)
+│   └── scripts/
+│       └── convert.ts                # pdftotext-based PDF converter
+└── english-tech-blog-structure/
     ├── SKILL.md                       # Skill definition (frontmatter + agent instructions)
-    └── scripts/
-        └── convert.ts                # pdftotext-based PDF converter
+    └── NOTICE                         # Apache-2.0 attribution (getsentry/skills)
 ```
 
 ## Available skills
@@ -73,6 +76,10 @@ Converts a PDF file to Markdown using `pdftotext` (poppler). Outputs clean Markd
 cd agent_skills
 npx tsx pdf-to-markdown/scripts/convert.ts <input.pdf> [output.md]
 ```
+
+### english-tech-blog-structure
+
+Structure guide for English technical blog posts (openings, headings, technical quality, titles, closings). Pairs with [blader/humanizer](https://github.com/blader/humanizer) for sentence-level AI tells. Adapted from getsentry/skills `blog-writing-guide` (Apache-2.0); see `english-tech-blog-structure/NOTICE`.
 
 ## Setup
 

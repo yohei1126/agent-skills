@@ -1,0 +1,18 @@
+english-tech-blog-structure — third-party attribution
+=====================================================
+
+This skill is adapted from the structural sections of the
+`blog-writing-guide` skill in getsentry/skills:
+
+  https://github.com/getsentry/skills/blob/main/skills/blog-writing-guide/SKILL.md
+
+Copyright 2025 Functional Software, Inc. dba Sentry
+Licensed under the Apache License, Version 2.0
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Modifications from the upstream skill: company voice, branding, and SEO
+advice removed; reframed for general English technical blog writing and
+for use alongside blader/humanizer (https://github.com/blader/humanizer).
+
+This NOTICE is for attribution only and does not change the MIT license
+of this repository (see LICENSE at the repository root).
