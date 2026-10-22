@@ -1,0 +1,30 @@
+# Dependency vulnerability scanning via Google's official OSV-Scanner reusable workflows.
+# Pinned to release v2.7.0 (commit b1d267aea5211fa648d9d442fa64b90dbdcbdd36).
+name: OSV-Scanner
+
+on:
+  schedule:
+    # Wednesday 00:00 UTC = Wednesday 08:00 SGT
+    - cron: "0 0 * * 3"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  scan-scheduled:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    permissions:
+      actions: read
+      security-events: write
+      contents: read
+    uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@b1d267aea5211fa648d9d442fa64b90dbdcbdd36 # v2.7.0
+
+  scan-pr:
+    if: github.event_name == 'pull_request'
+    permissions:
+      actions: read
+      security-events: write
+      contents: read
+    uses: google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@b1d267aea5211fa648d9d442fa64b90dbdcbdd36 # v2.7.0

@@ -1,0 +1,29 @@
+# Weekly dependency updates (Wednesdays). Ecosystems present in this repo:
+# - npm (package.json / package-lock.json at repo root)
+# - github-actions (.github/workflows)
+# No cargo, pip/uv lockfile, go.mod, etc. in this repository.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: wednesday
+    open-pull-requests-limit: 10
+    groups:
+      npm-minor-and-patch:
+        update-types:
+          - minor
+          - patch
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: wednesday
+    open-pull-requests-limit: 10
+    groups:
+      github-actions-minor-and-patch:
+        update-types:
+          - minor
+          - patch
