@@ -15,6 +15,6 @@
     "@types/node": "^24.0.0",
     "@types/turndown": "^5.0.5",
     "tsx": "^4.0.0",
-    "typescript": "^5.0.0"
+    "typescript": "^7.0.2"
   }
 }
