@@ -1,0 +1,15 @@
+repo-security-audit — third-party attribution
+=============================================
+
+This skill instructs agents to clone and follow Cloudflare's open-source
+security-audit skill at run time (nothing from that repository is vendored
+here):
+
+  https://github.com/cloudflare/security-audit-skill
+
+Copyright (c) Cloudflare, Inc.
+Licensed under the MIT License
+  https://github.com/cloudflare/security-audit-skill/blob/main/LICENSE
+
+This NOTICE is for attribution only and does not change the MIT license
+of this repository (see LICENSE at the repository root).
