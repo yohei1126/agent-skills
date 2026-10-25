@@ -2,10 +2,10 @@
 name: md-deck
 description: >-
   Use when creating or revising slide decks with md-deck (Markdown → PDF):
-  workflow, style vs content split, spacing density, copy budgets, diagram
-  recipes, cover-title breaks, review before tag/release, and common failure
-  modes. Independent of any one deck or subject. Do not put customer names,
-  proposal content, or a brand palette here.
+  workflow, style vs content split, theme choice, spacing density, copy
+  budgets, diagram recipes, cover-title breaks, review before tag/release,
+  and common failure modes. Independent of any one deck or subject. Do not
+  put customer names, proposal content, or a brand palette here.
 ---
 # md-deck slide decks
 
@@ -19,12 +19,12 @@ Reusable practice for building 16:9 PDF slide decks with [md-deck](https://githu
 | Deck repo | e.g. a project docs repo | Slides Markdown, `deck_style.md`, optional CSS, Release PDFs |
 | `examples/` in md-deck | md-deck only | Samples. Do not treat as production deck sources |
 
-Content and visual style live in the **deck repository**, not in md-deck. md-deck does not ship a brand theme; a style file is required.
+Slide words live in the **deck repository**. Colour tokens and theme CSS live in md-deck. This skill only says which theme to pick. The deck repo still supplies a style file. This skill does not prescribe a customer brand.
 
 ## Recommended workflow
 
 1. Lock scope in a brief: slide count, goal of each slide, and any forbidden claims.
-2. Write `deck/*.md` (or the deck’s paths). Front matter must name `style` (and optional CSS) per md-deck’s contract.
+2. Write `deck/*.md` (or the deck’s paths). Front matter must name `style` (and optional CSS) per md-deck’s contract. Pick the theme in [Theme choice](#theme-choice).
 3. Run `md-deck check`, then build the PDF with the **same pinned md-deck version** locally and in CI. Check enforces the cover-title rules; it does not enforce the copy budget below.
 4. Open a PR and wait for CI green (`check` / build PDF).
 5. On the PR branch, rebuild with `md-deck build --png`. Attach the PDF plus the cover PNG and every flow slide for review **before** merge.
@@ -39,14 +39,14 @@ Content and visual style live in the **deck repository**, not in md-deck. md-dec
 
 ## Visual goals
 
-- Aim for NotebookLM-like readability through density and short copy: quiet colour, structured information, and a visible bone of boxes and arrows. Colours live in that deck’s style file.
+- Aim for NotebookLM-like readability through density and short copy: quiet colour, structured information, and a visible bone of boxes and arrows. Pick a theme below; do not invent a palette in this skill.
 - Leave decoration out of the style CSS: gradients, drop shadows, stickers, and icon collages. Limits and the phased plan: [VISUAL_POLICY.md](https://github.com/yohei1126/md-deck/blob/main/docs/VISUAL_POLICY.md).
 - Generation is deterministic: same inputs → same layout. Do not use NotebookLM slide generation for these PDFs.
 - Decks that share a style guide keep that guide. Change the subject terms, not the visual system.
 
 ## Where style lives
 
-- Colours, spacing, fonts: deck-side `deck_style.md` (YAML tokens + optional fenced `css` targeting [HOOKS.md](https://github.com/yohei1126/md-deck/blob/main/docs/HOOKS.md)). A deck style may add a cover frame. This skill does not prescribe a brand.
+- Spacing, fonts, and optional CSS: deck-side `deck_style.md` (YAML tokens + optional fenced `css` targeting [HOOKS.md](https://github.com/yohei1126/md-deck/blob/main/docs/HOOKS.md)). A deck style may add a cover frame. Colour tokens and theme CSS stay in md-deck.
 - To fix a sparse layout **without** changing wording, prefer style / CSS / layout structure over rewriting prose.
 - In Japanese prose about outputs, prefer the phrase for “slide materials” over “deck”; keep the product name `md-deck` and paths like `deck_style.md` / `deck/` unchanged.
 
@@ -60,6 +60,24 @@ Separate **page outer padding** from **gaps inside and between blocks**.
 - Keep wording fixed when the ask is visual only; put premise corrections in a separate pass.
 
 Useful style tokens (see md-deck style docs): `page_padding` / `page_padding_*`, `gap`, `card_padding`, `font_size_body`, `line_height`, and CSS on stable hooks (lists, cards, columns)—not `#slide-N :nth-child()` selectors.
+
+A `::: flow wide` row grows toward `flow_preferred_height` (default `60%` of the slide). Stretching boxes to the full height left under the title is opt-in (`flow_fill_height: fill` or `::: flow fill`). The title stays at the top; the blocks under the title are centred in the space that remains. The token list is in [VISUAL_POLICY.md](https://github.com/yohei1126/md-deck/blob/main/docs/VISUAL_POLICY.md) once [md-deck#18](https://github.com/yohei1126/md-deck/pull/18) lands. Do not copy theme CSS into this skill.
+
+## Theme choice
+
+Guidance only. The HEX values and theme CSS live in md-deck.
+
+- A customer-facing deck uses the md-deck `dark-blue` theme: navy, with warm off-white and gray.
+- Do not ship a customer-facing deck on the plain eval default (pure white and black). Beside a professional palette it reads cheap.
+- The plain theme is for visual-regression and density evaluation only.
+- This skill says when to pick a theme. It does not list the tokens. Read the token list in [VISUAL_POLICY.md](https://github.com/yohei1126/md-deck/blob/main/docs/VISUAL_POLICY.md) once [md-deck#18](https://github.com/yohei1126/md-deck/pull/18) lands.
+
+### Sources / 参考
+
+- [Theme color samples](https://ppt.design4u.jp/theme-color-samples/) — dark-blue HEX roles. The site is closed; use the [Wayback snapshot](https://web.archive.org/web/2024/https://ppt.design4u.jp/theme-color-samples/).
+- [PowerPoint color schemes](https://deckary.com/blog/powerpoint-color-schemes) — navy, gray, and one accent (60-30-10).
+- [Slide accessibility guidance](https://www.cctl.cam.ac.uk/slide-accessibility-guidance) — avoid a pure white background; prefer navy on off-white.
+- [デジタル庁｜カラー](https://design.digital.go.jp/dads/foundations/color/) — token roles.
 
 ## Writing slides
 
@@ -111,6 +129,7 @@ md-deck build slides.md -o out/deck.pdf --png out/png
 
 - Slide count, order, and information density vs the reference PDF or previous version
 - Copy budget: Key Message, box / flow labels (12), column headings (about 14), column items, bullets, `::: question` on its own ≤40 budget, and body length with the question excluded
+- Customer-facing deck uses `dark-blue`. The plain theme appears only on a visual-regression or density eval.
 - CI: check decks / build PDF succeeded
 - Layout: not overly sparse; cover and diagrams not crushed
 - Cover PNG: phrase-boundary breaks only, lines balanced (`md-deck build --png`)
@@ -126,6 +145,7 @@ md-deck build slides.md -o out/deck.pdf --png out/png
 - Filling budget whitespace with extra words instead of enlarging the boxes or the type
 - Cover title wrapped mid-phrase, or split with a trailing backslash instead of `\n`
 - Shipping a flow slide whose arrows run into corners
+- Shipping a customer-facing deck on the plain white-and-black eval theme
 - Local md-deck version differs from CI
 - Comparing sources only and skipping the Release / review PDF and the cover / flow PNGs
 - Cutting a tag before the owner reviews the PDF
@@ -140,6 +160,7 @@ md-deck build slides.md -o out/deck.pdf --png out/png
 
 - Brief (count, goals, forbids) honored
 - Copy budget, diagram recipes, and cover-title breaks followed
+- Customer-facing decks use `dark-blue`; plain is limited to visual-regression or density evaluation
 - Style and content split respected; wording unchanged when the ask was visual-only
 - Same pinned md-deck in check/build locally and in CI
 - Cover PNG and every flow slide reviewed (`md-deck build --png`); an arrow into a corner is a failed review
