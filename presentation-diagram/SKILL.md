@@ -23,6 +23,11 @@ Palette: [presentation-color](../presentation-color/SKILL.md).
 - Use few shape types. Keep lines from crossing or overlapping.
 - Do not carry meaning by colour alone. Pair a colour with a label or a shape.
 - Prefer a short node label. When a branch gets hard to follow, split it into more than one diagram.
+- Centre the figure as one group. Put a box that relates to one other box directly under or beside it.
+- Draw an arrow straight when its two ends line up. Every arrow needs a visible shaft; an arrowhead alone reads as a triangle.
+- Keep each label next to what it names. Do not repeat the same words as a group label and an arrow label.
+- Put a gap or a break on the connection where it happens, between the two parties.
+- When a box stands for something that lives somewhere (evidence, data, documents), say where.
 - Put important information in the text as well as in the figure. The diagram is not the only copy of a fact.
 - In an article, add a linear equivalent in reading order: a list or headings.
 

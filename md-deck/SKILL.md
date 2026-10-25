@@ -86,7 +86,8 @@ Count **full-width characters**: one CJK character is 1, one ASCII letter or dig
 | Piece | Budget |
 | :--- | :--- |
 | Key Message | 1 sentence, ≤40 full-width characters |
-| Box / flow label | ≤12 full-width characters. A label is a name: no sentence-final `。`, and no choice packed into one label (`AまたはB`) |
+| Box / flow label | ≤12 full-width characters. A label is a name: no sentence-final `。`, and no choice packed into one label (`AまたはB`). This holds for each member of a `{ A / B }` branch stack too |
+| Box caption (after `\|`) | 1 short line, ≤20 full-width characters. Move the detail into the speaker script, not into the box |
 | Column heading | About 14 full-width characters. A `::: columns` heading is not a box / flow label, so the 12-character label rule does not apply |
 | `::: columns` items | 3 items per column, ≤15 full-width characters each. Same sentence pattern on the left and the right. Bullets inside panels; no paragraphs |
 | Bullet body | ≤3 items per slide, 1 sentence each |
@@ -101,11 +102,17 @@ Principles (reading order, short labels, split a complex branch, text equivalent
 
 - **2-box compare:** `::: columns panel` with parallel short bullets.
 - **3-step row:** `::: flow wide` with name-length labels.
-- **Branch:** a `{ A / B }` stack, plus a separate edge into each member. `Start -> { A / B }` draws a single arrow into the middle of the stack.
+- **Branch:** a `{ A / B }` stack, plus a separate edge into each member. `Start -> { A / B }` draws a single arrow into the middle of the stack. Keep each branch label at the box-label budget; a long branch label stretches the whole stack across the slide.
+- **Two rows of parties:** two `lane:` rows joined by `link:`. Leave `lane:` unlabelled when the boxes already name the parties. A lane label must not repeat an edge label.
+- **A gap between two parties** (missing hand-off, broken information flow): write it as the label of the `link:` between those two boxes, not as a callout beside one of them.
+- **One box under a longer lane:** `lane: [align=end]` (or `center`) so the box sits under the box it relates to, instead of hugging the left edge. That option works only after [md-deck#18](https://github.com/yohei1126/md-deck/pull/18) lands.
+- **Where something lives:** when the point of a box is a place (evidence, data, a document), name the place in the label or the caption.
 
 Photos, logos, and maps may be images. Boxes and arrows stay in these recipes.
 
 ## Cover titles
+
+Make the cover title clearly larger than a slide title (about 1.5× the slide-title size) and let the title block use the vertical space; a small title clustered in the middle of the cover fails review. Set the size in the deck's `deck_style.md` CSS on the cover hooks, not in md-deck.
 
 Break a wrapping cover title only with `\n` in the H1 (`# First phrase\nSecond phrase`). A trailing `\` does not continue an ATX heading. Break on a phrase boundary, and keep the two lines balanced. `md-deck check` enforces the structural rules. Thresholds: [VISUAL_POLICY.md](https://github.com/yohei1126/md-deck/blob/main/docs/VISUAL_POLICY.md).
 
@@ -118,13 +125,14 @@ md-deck build slides.md -o out/deck.pdf --png out/png
 ## Pre-merge review checklist
 
 - Slide count, order, and information density vs the reference PDF or previous version
-- Copy budget: Key Message, box / flow labels (12), column headings (about 14), column items, bullets, `::: question` on its own ≤40 budget, and body length with the question excluded
+- Copy budget: Key Message, box / flow labels (12, including each branch box), captions (20, one line), column headings (about 14), column items, bullets, `::: question` on its own ≤40 budget, and body length with the question excluded
 - Palette follows [presentation-color](../presentation-color/SKILL.md); the theme is selected in `deck_style`.
 - Diagram principles follow [presentation-diagram](../presentation-diagram/SKILL.md).
 - CI: check decks / build PDF succeeded
 - Layout: not overly sparse; cover and diagrams not crushed
-- Cover PNG: phrase-boundary breaks only, lines balanced (`md-deck build --png`)
+- Cover PNG: title about 1.5× a slide title and using the vertical space; phrase-boundary breaks only; lines balanced (`md-deck build --png`)
 - Every flow slide PNG: arrows meet an edge of the box. An arrow into a corner fails review
+- Every flow slide PNG: the diagram is centred as a group, not pushed to one side; vertical arrows between boxes that line up are straight, not bent; every arrow shows a shaft, not only a head (a lone triangle fails review); each label sits next to the box or line it names
 - Forbidden premises from the brief are not still on the slides
 - Local and CI md-deck versions match
 
@@ -136,6 +144,8 @@ md-deck build slides.md -o out/deck.pdf --png out/png
 - Filling budget whitespace with extra words instead of enlarging the boxes or the type
 - Cover title wrapped mid-phrase, or split with a trailing backslash instead of `\n`
 - Shipping a flow slide whose arrows run into corners
+- Shipping a flow slide with a lone arrowhead (no shaft), a bent arrow between aligned boxes, a diagram hugging the left edge, or a lane label floating away from its boxes
+- Long branch labels in a `{ A / B }` stack, or a cover title no larger than a slide title
 - A customer-facing deck left on the plain eval theme (see [presentation-color](../presentation-color/SKILL.md))
 - Local md-deck version differs from CI
 - Comparing sources only and skipping the Release / review PDF and the cover / flow PNGs
