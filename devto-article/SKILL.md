@@ -36,7 +36,7 @@ series: Ontographia
 
 - Drafts must keep `published: false`. Only the owner flips the flag or hits publish
 - `tags` are lowercase English, following site conventions. Aim for up to 4 tags for API registration. Forem/Dev.to create accepts at most 4 tags. If a fifth is desired for humans, note it in the file only; it cannot be sent on create
-- When the piece already published elsewhere, set `canonical_url` to the canonical URL (for example the earlier LinkedIn article)
+- When the piece already published elsewhere, set `canonical_url` to that first URL (for a LinkedIn cross-post, the LinkedIn Pulse URL)
 - For a series, use `series` so it appears in DEV's series feature
 
 ## Titles and slugs
@@ -61,8 +61,10 @@ Common order:
 
 1. Publish on LinkedIn
 2. Wait a few days, then post on DEV
-3. Set DEV `canonical_url` to the LinkedIn article
+3. Set DEV `canonical_url` to the first-published LinkedIn Pulse URL
 4. Keep claims, numbers, and how limits are stated aligned; change only channel greetings and series UI
+
+Series TOC links for published parts may keep the LinkedIn Pulse URLs.
 
 If DEV ships first, set `canonical_url` on the later channel to the URL that published first.
 
