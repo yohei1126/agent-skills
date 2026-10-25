@@ -3,7 +3,7 @@ name: md-deck
 description: >-
   Use when creating or revising slide decks with md-deck (Markdown → PDF):
   workflow, style vs content split, spacing density, copy budgets, diagram
-  recipes, cover-title breaks, flow number badges, dashed gap links, eyebrows,
+  recipes, cover-title breaks, corner indexes, dashed gap links, eyebrows,
   dashed layer outlines, content-sized column cards, review before tag/release,
   and common failure modes. Palette: visual-color. Diagram principles:
   visual-diagram. Independent of any
@@ -68,35 +68,36 @@ A `::: flow wide` row grows toward `flow_preferred_height` (default `60%` of the
 
 Once md-deck ships the denser defaults, rely on them instead of extra CSS: box text about 18px, cards aligned to the top, a bold Key Message, and lane spread only when the deck opts in. Until that generator is pinned, set those in the deck style.
 
-`::: columns` and `::: columns panel` cards stay content-sized: as tall as the heading plus the items. Leave `fill` off unless the brief asks those cards to take the leftover height. Do not raise `column_min_height`, and do not add CSS, to stretch a short card up to a taller neighbour. Do not lower `font_size_body` or `line_height`, and do not cut the body copy, so the row looks dense. Thin body copy is not density. The column budget below still applies at the normal body size.
+`::: columns`, `::: columns panel`, and `::: columns plain` stay content height. Cards do not grow to the leftover slide. The `column_min_height` floor (default `160px`) still applies. Only `::: columns fill` stretches that row. Do not raise the floor, and do not add CSS, to make a short card match a taller neighbour. Do not lower `font_size_body` or `line_height`, and do not cut the body copy, so the row looks dense. Thin body copy is not density. The column budget below still applies at the normal body size.
 
 ## Theme
 
-Palette and when to use `dark-blue` or plain: [visual-color](https://github.com/yohei1126/agent-skills/blob/main/visual-color/SKILL.md). In `deck_style`, select theme `dark-blue`. Theme CSS is implemented in md-deck. This skill does not repeat the HEX values.
+Palette and when to use `dark-blue` or plain: [visual-color](https://github.com/yohei1126/agent-skills/blob/main/visual-color/SKILL.md). In `deck_style`, select theme `dark-blue`. Theme CSS is implemented in md-deck. This skill does not repeat the HEX values. An eyebrow uses `--color-accent-2`. A dashed gap edge and its label use `--color-edge-gap`. Set those by the theme, or by the matching style tokens. Do not hard-code the colours in a deck CSS fence.
 
 ## Writing slides
 
 - Keep the slide count fixed to the brief; do not add slides without an ask.
 - Each slide: one goal, plus evidence / figure / question. Do not thin the deck into slogans only.
 - For discussion decks, keep explicit discussion questions (`::: question` or the deck’s agreed pattern).
-- Use only md-deck-supported constructs (`---` slides, one `#` title, Key Message, `::: columns` / `::: flow` / `::: source`, tables, hard breaks, an `{.eyebrow}` line, flow badges, dashed links, `{.dashed}`). See [INPUT_FORMAT.md](https://github.com/yohei1126/md-deck/blob/main/docs/INPUT_FORMAT.md). Forms that `md-deck check` rejects on the pinned generator are not supported yet: do not invent a second directive or a `#slide-N` CSS hook.
+- Use only md-deck-supported constructs (`---` slides, one `#` title, one `eyebrow:` line, Key Message, `::: columns` / `::: flow` / `::: source`, tables, hard breaks, flow corner indexes, dashed links, `{.dashed}` on a column heading). See [INPUT_FORMAT.md](https://github.com/yohei1126/md-deck/blob/main/docs/INPUT_FORMAT.md). Forms that `md-deck check` rejects on the pinned generator are not supported yet: do not invent a second directive or a `#slide-N` CSS hook.
 - Prefer the diagram recipes, copy budget, and cover-title rules below. Reading order and when to split a figure: [visual-diagram](https://github.com/yohei1126/agent-skills/blob/main/visual-diagram/SKILL.md). When a prototype or an earlier deck in the same series exists, match its column / flow / card / table structures.
 
 ## Section label (eyebrow)
 
-One section label may sit on its own line above the H1. It names the section. The H1 names the slide.
+One section label may sit on its own line immediately before the H1. It names the section. The H1 names the slide. It is not a class on the heading.
 
 ```markdown
-Method {.eyebrow}
-
+eyebrow: Section label
 # Where the record lives
 ```
 
-- The class is `{.eyebrow}`. One per content slide. A cover (the first slide, or `{.cover}`) uses `.cover-meta` for subtitle and date, not an eyebrow.
-- A name, ≤14 full-width characters, no sentence-final ideographic full stop. Shorter than the title.
-- It must not repeat the H1, and it is not a Key Message. Omit it when the title already names the section.
-- Do not fold it into the H1 (`# Method: Title` or `# Method\nTitle`) and do not put a heading above the title.
-- Leave it out of the slide-body character count.
+- The directive is `eyebrow: Section label`. The keyword is case-insensitive (`Eyebrow`, `EYEBROW`). A full-width colon works (`eyebrow：Section label`).
+- One top-level line per slide, immediately before the title. An empty body (`eyebrow:`) is an error. A second eyebrow on the same slide is an error.
+- It renders as `<p class="eyebrow">` before the `h1`. Colour is `--color-accent-2`. The value is [visual-color](https://github.com/yohei1126/agent-skills/blob/main/visual-color/SKILL.md).
+- A line inside a fence or a `:::` block is left alone. It is not an eyebrow.
+- Do not write `{.eyebrow}` on the H1. Do not fold the label into the title (`# Section label: Title` or `# Section label\nTitle`).
+- A name, ≤14 full-width characters, no sentence-final ideographic full stop. Shorter than the title. It must not repeat the H1, and it is not a Key Message. Omit it when the title already names the section.
+- Leave it out of the slide-body character count. Cover subtitle and date stay `.cover-meta`. An eyebrow does not replace them.
 - The words in the fence are placeholders. Do not put a customer, event, or proposal name here.
 
 ## Copy budget
@@ -111,15 +112,15 @@ Count **full-width characters**: one CJK character is 1, one ASCII letter or dig
 | Box / flow label | ≤12 full-width characters. A label is a name: no sentence-final ideographic full stop, and no choice packed into one label (an "A or B" label). This holds for each member of a `{ A / B }` branch stack too |
 | Box caption (after `\|`) | 1 short line, ≤20 full-width characters. Move the detail into the speaker script, not into the box |
 | Column heading | About 14 full-width characters. A `::: columns` heading is not a box / flow label, so the 12-character label rule does not apply |
-| Eyebrow (`{.eyebrow}`) | One line above the H1, ≤14 full-width characters. A section name. Leave it out of the slide-body count |
-| Number badge (`{1}`) | Digits only, outside the title. Does not spend the ≤12 box-label budget. A circled number written in the title does |
+| Eyebrow (`eyebrow:`) | One line immediately before the H1, ≤14 full-width characters. A section name. Empty is an error. Leave it out of the slide-body count |
+| Corner index | A leading circled digit with a real title (`① Intake`), or `{1}` / `{①}`. Drawn as `.flow-node-index`, so it does not spend the ≤12 box-label budget. `{draft}` and `{v1}` stay inline. A title that is only `①` stays the title. ASCII digits inside a title are not an index |
 | Gap label on a dashed link | ≤12 full-width characters. A name for the missing step, on that link only |
 | `::: columns` items | 3 items per column, ≤15 full-width characters each. Same sentence pattern on the left and the right. Bullets inside panels; no paragraphs |
 | Bullet body | ≤3 items per slide, 1 sentence each |
 | `::: question` | 1 sentence, ≤40 full-width characters. Own budget: leave it out of the slide-body count |
-| Slide body | Excluding the title, `{.eyebrow}`, `::: source`, and `::: question`, aim for ≤150 full-width characters. Split the slide when the body runs over |
+| Slide body | Excluding the title, the `eyebrow:` line, `::: source`, and `::: question`, aim for ≤150 full-width characters. Split the slide when the body runs over |
 
-When these budgets leave whitespace on a flow, enlarge the boxes or the type. Do not pad with more words. That sits with “Do not thin the deck into slogans only” under Writing slides. On `::: columns` / `::: columns panel`, keep the cards content-sized instead: do not thin the body copy, and do not stretch the card, to fake density.
+When these budgets leave whitespace on a flow, enlarge the boxes or the type. Do not pad with more words. That sits with “Do not thin the deck into slogans only” under Writing slides. On `::: columns` / `panel` / `plain`, keep content height. Do not thin the body copy, and do not add `fill`, to fake density.
 
 The caps guide a **new** diagram. When rebuilding an existing deck from a transcript or other source, the source wording wins. Wrap a long label with `\n`. Do not cut a sentence, and do not drop a note or a side arrow, only to meet the ≤12 label cap.
 
@@ -128,23 +129,33 @@ The caps guide a **new** diagram. When rebuilding an existing deck from a transc
 Principles (reading order, short labels, split a complex branch, text equivalent): [visual-diagram](https://github.com/yohei1126/agent-skills/blob/main/visual-diagram/SKILL.md). The Markdown shapes stay here. Before/after markup: [DIAGRAMS.md](https://github.com/yohei1126/md-deck/blob/main/docs/DIAGRAMS.md). Buildable sample: [`examples/diagram_patterns.md`](https://github.com/yohei1126/md-deck/blob/main/examples/diagram_patterns.md).
 
 - **2-box compare:** `::: columns panel` with parallel short bullets.
-- **3-step row:** `::: flow wide` with name-length labels. The index is a number badge or `steps`, not `①` inside the title. See below.
+- **3-step row:** `::: flow wide` with name-length labels. The corner index is a leading circled digit or `{1}` / `{①}`, or use `steps` for an automatic counter. See below.
 - **Branch:** a `{ A / B }` stack, plus a separate edge into each member. `Start -> { A / B }` draws a single arrow into the middle of the stack. Keep each branch label at the box-label budget; a long branch label stretches the whole stack across the slide.
 - **Two rows of parties:** two `lane:` rows joined by `link:`. Leave `lane:` unlabelled when the boxes already name the parties. A lane label must not repeat an edge label.
-- **A gap between two parties** (missing hand-off, broken information flow): one dashed link, with the missing step as that link’s label. That link is the emphasis. Not a callout, and not a box added to the row. See below.
-- **Secondary layer:** `{.dashed}` on the muted outline only. Primary step boxes stay solid. See below.
+- **A gap between two parties** (missing hand-off, broken information flow): one dashed link, `-.[label].->` or `link: a ..>`. That link is the emphasis and uses `--color-edge-gap`. Not a callout, and not a box added to the row. See below.
+- **Quieter column:** `## Quiet {.dashed}` on that card’s heading, so the card is `.column.dashed`. Pair with `{.muted}` when the layer should read quieter. See below.
 - **One box under a longer lane:** `lane: [align=end]` (or `center`) so the box sits under the box it relates to, instead of hugging the left edge. Markup: [INPUT_FORMAT.md](https://github.com/yohei1126/md-deck/blob/main/docs/INPUT_FORMAT.md).
 - **Where something lives:** when the point of a box is a place (evidence, data, a document), name the place in the label or the caption.
 
 Photos, logos, and maps may be images. Boxes and arrows stay in these recipes.
 
-## Flow numbers, gaps, and secondary layers
+## Flow numbers, gaps, and dashed cards
 
 Authoring forms. If `md-deck check` on the pinned generator rejects one, do not invent a second directive or a `#slide-N` CSS hook. Pin the generator that accepts it.
 
-### Number badge vs `①` in the title
+### Corner index
 
-The index sits outside the name. The title stays a name (≤12 full-width characters).
+The index is `.flow-node-index`, outside the title. The title stays a name (≤12 full-width characters).
+
+A leading circled digit with a real title is lifted into that corner:
+
+```markdown
+::: flow wide
+① Collect -> ② Decide -> ③ Record
+:::
+```
+
+The same corner index is a badge that is only a circled number or 1–3 digits:
 
 ```markdown
 ::: flow wide
@@ -152,9 +163,12 @@ Collect {1} -> Decide {2} -> Record {3}
 :::
 ```
 
-`{1}` is a number badge (`.flow-node-badge`). It does not spend the label budget.
+`{①}` is the same kind of index as `{1}`.
 
-`::: flow steps` draws that index, 1..n in reading order, as a muted counter. Use it when you do not choose the digits:
+- One index per box. Do not write both `① Collect` and `{1}` on the same node.
+- `{draft}` and `{v1}` stay inline (`.flow-node-badge`). They are not corner indexes.
+- A title that is only `①` stays the title. ASCII digits inside a title (`Collect 1`) are not lifted.
+- `::: flow steps` draws a separate muted counter, 1..n in reading order. Use it when you do not choose the digits. Do not also add a corner index:
 
 ```markdown
 ::: flow wide steps
@@ -162,44 +176,50 @@ Collect -> Decide -> Record
 :::
 ```
 
-- One index per box. Do not combine `steps` with `{1}` or with `①` in the title.
-- Write `①` in the title (`① Collect`) only when a rebuild must keep that circled number as part of the source name. Then add neither a number badge nor `steps`. The circled number spends the label budget.
-- `{v1}` is a status badge, not a step number. A step number is digits only.
-
 ### Gap (dashed-link emphasis)
 
-A missing step is the connection. Draw one dashed link. The label is the annotation, and that link is the emphasis.
+A missing step is the connection. Draw one dashed link. The label is the annotation, and that link is the emphasis. Write the operator with no space: `-.[label].->`.
 
 ```markdown
 ::: flow
-Intake -.[no hand-off].-> Review
+Intake -.[missing].-> Review
 :::
 ```
 
-Across lanes, the same annotation is the `link:` label:
+Across lanes, the same stroke is `..>`:
 
 ```markdown
-link: Intake ..> Review : no hand-off
+link: Intake ..> Review : missing
 ```
 
 - Solid `->` means the step exists. Dashed `..>` or `-.[label].->` means the connection is the gap.
 - Emphasise one gap. Leave the other edges solid.
+- The dashed stroke and its label use `--color-edge-gap`. On `dark-blue` that token is the accent. The value is [visual-color](https://github.com/yohei1126/agent-skills/blob/main/visual-color/SKILL.md). The label hook is `.flow-label-gap`.
 - The label is a short name, ≤12 full-width characters. It is not a callout, not a new box, and not a lane label. Do not repeat it on the boxes.
 
-### Secondary layer outline
+### Dashed column card
 
-A layer that is context, not a primary step, takes a muted dashed outline. The class is `{.dashed}`.
+A quieter card takes a dashed outline from the column heading, not from a flow node.
 
 ```markdown
-Context {.dashed}
+::: columns panel
+## Quiet {.dashed}
+
+- One owner
+
++++
+
+## Active {.dashed .muted}
+
+- One check
+:::
 ```
 
-- `{.dashed}` is a class, the same shape as `{.cover}` on an H1. It starts with a dot. A badge does not (`{1}`, `{v1}`). `{#id}` is an id.
-- Put it on the secondary layer only. Primary step boxes stay a solid outline.
-- A dashed link is a missing step. A dashed outline is a secondary layer. Do not swap them.
-- Colour that outline with the structure or text role, not the accent. Roles: [visual-color](https://github.com/yohei1126/agent-skills/blob/main/visual-color/SKILL.md).
-- Kind `[muted]` names a secondary node. It is not a second outline syntax. Use `{.dashed}` for the outline. If the pinned docs name one other marker for this same outline, use that marker. Do not add a third.
-- On the PNG, a badge whose text is `.dashed` means this pin stored the class as a badge. Do not ship that slide.
+- `## Quiet {.dashed}` copies `.dashed` onto the card (`.column.dashed`). The class stays on the heading as well.
+- Combine with `{.muted}` (`## Quiet {.dashed .muted}`) when that layer should read quieter.
+- `{.dashed}` on a flow node is a badge, not an outline. Put the class on the column heading.
+- A dashed link is a missing step. A dashed card outline is a quieter column. Do not swap them.
+- `::: columns` stays content height. Only `::: columns fill` stretches the row.
 
 ## Cover titles
 
@@ -216,14 +236,14 @@ md-deck build slides.md -o out/deck.pdf --png out/png
 ## Pre-merge review checklist
 
 - Slide count, order, and information density vs the reference PDF or previous version
-- Copy budget: Key Message, box / flow labels (12, including each branch box), captions (20, one line), column headings (about 14), eyebrow (≤14, excluded from the body), dashed-link gap labels (12), column items, bullets, `::: question` on its own ≤40 budget, and body length with the eyebrow and question excluded. A number badge does not spend the 12. On a rebuild from a transcript or other source, the source wording wins: wrap with `\n` instead of cutting to 12
+- Copy budget: Key Message, box / flow labels (12, including each branch box), captions (20, one line), column headings (about 14), eyebrow (≤14, excluded from the body), dashed-link gap labels (12), column items, bullets, `::: question` on its own ≤40 budget, and body length with the eyebrow and question excluded. A corner index does not spend the 12. On a rebuild from a transcript or other source, the source wording wins: wrap with `\n` instead of cutting to 12
 - Palette follows [visual-color](https://github.com/yohei1126/agent-skills/blob/main/visual-color/SKILL.md); the theme is selected in `deck_style`.
 - Diagram principles follow [visual-diagram](https://github.com/yohei1126/agent-skills/blob/main/visual-diagram/SKILL.md).
-- Flow index: a number badge or `steps`, one per box. `①` in the title only when the source name includes it
-- One dashed link carries the gap label; the other edges stay solid
-- Eyebrow, when present: one `{.eyebrow}` line above the H1, ≤14 full-width characters, not a repeat of the title, not on a cover
-- A secondary layer uses `{.dashed}`; primary boxes keep a solid outline. No badge that reads `.dashed`
-- `::: columns` / `panel` cards are content-sized. Body copy is not thinned, and cards are not stretched, to fake density
+- Flow index: one corner index per box (`① Name`, `{1}`, or `{①}`) or `steps`, not both. `{draft}` and `{v1}` stay inline. A title that is only `①` stays the title
+- One dashed link carries the gap label and `--color-edge-gap`; the other edges stay solid. The operator is `-.[label].->` or `link: a ..>`
+- Eyebrow, when present: one `eyebrow:` line immediately before the H1, non-empty, ≤14 full-width characters, not a repeat of the title. Not `{.eyebrow}` on the H1
+- A quieter card is `## Quiet {.dashed}` (`.column.dashed`), optionally `{.muted}`. `{.dashed}` is not a flow-node badge
+- `::: columns` / `panel` / `plain` stay content height. Only `::: columns fill` stretches. Body copy is not thinned to fake density
 - CI: check decks / build PDF succeeded
 - Layout: not overly sparse; cover and diagrams not crushed
 - Cover PNG: title about 1.5× a slide title and using the vertical space; phrase-boundary breaks only; lines balanced (`md-deck build --png`)
@@ -237,10 +257,10 @@ md-deck build slides.md -o out/deck.pdf --png out/png
 - Generator or style “fixes” make premises correct but add whitespace so the deck feels emptier
 - Replacing a figure with a thin table leaves large empty regions
 - Sentence-length node labels, a column heading held to the 12-character box-label cap, paragraphs inside a `::: columns panel`, or a branch written as one "A or B" label
-- `①` in a flow title together with a number badge or `steps`
+- A corner index together with `steps`, or both `① Collect` and `{1}` on the same node
 - A missing step drawn as a callout, an extra box, or a solid arrow, or every edge dashed
-- An eyebrow that repeats the H1, sits on a cover, or is a sentence
-- `{.dashed}` on a primary step, or a shipped badge whose text is `.dashed`
+- `{.eyebrow}` on the H1, an empty `eyebrow:`, a second eyebrow, or an eyebrow that repeats the H1
+- `{.dashed}` written on a flow node, where it is a badge, instead of on the column heading
 - `::: columns fill`, a raised `column_min_height`, or a smaller body size used so a short card row looks dense
 - Filling budget whitespace with extra words instead of enlarging the boxes or the type
 - Cover title wrapped mid-phrase, or split with a trailing backslash instead of `\n`
@@ -262,7 +282,7 @@ md-deck build slides.md -o out/deck.pdf --png out/png
 ## Success criteria
 
 - Brief (count, goals, forbids) honored
-- Copy budget, diagram recipes, cover-title breaks, number badges, dashed gap links, eyebrows, `{.dashed}` outlines, and content-sized column cards followed
+- Copy budget, diagram recipes, cover-title breaks, corner indexes, dashed gap links, `eyebrow:` lines, `{.dashed}` cards, and content-height columns followed
 - Palette follows [visual-color](https://github.com/yohei1126/agent-skills/blob/main/visual-color/SKILL.md)
 - Diagram principles follow [visual-diagram](https://github.com/yohei1126/agent-skills/blob/main/visual-diagram/SKILL.md)
 - Style and content split respected; wording unchanged when the ask was visual-only
