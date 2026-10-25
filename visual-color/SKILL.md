@@ -4,7 +4,9 @@ description: >-
   Use when any visual needs a professional palette: md-deck theme selection,
   article cover images, inline diagrams, or generated images (Zenn, LinkedIn,
   Dev.to, and slide decks). Canonical palette is dark-blue. Eyebrows use the
-  secondary accent. Dashed gap edges use the accent. Plain white and black
+  secondary accent. Ordinary dashes use the arrow colour. Gap emphasis
+  (style=gap) uses the accent. Dashed card outlines use
+  color_dashed_outline. Plain white and black
   is for eval and regression only. Do not put customer names or subject
   claims here.
 ---
@@ -31,23 +33,25 @@ Canonical tokens. Background is off-white, not pure white.
 | :--- | :--- | :--- |
 | Background / off-white | `#EDE8E4` | Page and image ground |
 | Text | `#333333` | Body text |
-| Main / navy | `#073365` | Titles, structure, diagram strokes |
-| Accent | `#F7581D` | Highlights, calls to action, caution, and dashed gap edges (`--color-edge-gap`) |
-| Secondary accent | `#1A6B7A` | Eyebrows and other quiet labels (`--color-accent-2`) |
+| Main / navy | `#073365` | Titles, structure, diagram strokes, and ordinary dashed edges (`--color-flow-arrow`) |
+| Accent | `#F7581D` | Highlights, calls to action, caution, and gap emphasis (`[style=gap]`, `--color-edge-gap`) |
+| Secondary accent | `#1A6B7A` | Eyebrows and other quiet labels (`--color-accent-2`). On this theme, also the `{.dashed}` card outline (`--color-dashed-outline`) |
 
-Area split: about 60% background, about 30% text and structure, about 10% accent. The secondary accent is the eyebrow colour. It does not replace the accent and it does not add a second highlight share.
+Area split: about 60% background, about 30% text and structure, about 10% accent. The secondary accent colours eyebrows and, on `dark-blue`, the dashed card outline. The accent share stays the highlights, including gap emphasis.
 
 ## Ops rules
 
 - Customer-facing decks, and public article covers and diagrams, use `dark-blue`.
 - Plain white and black is for evaluation and visual regression only. Do not use it for a customer-facing or public visual.
 - An eyebrow uses the secondary accent (`--color-accent-2`, `#1A6B7A` on `dark-blue`).
-- A dashed gap edge and its label use the accent (`--color-edge-gap`, `#F7581D` on `dark-blue`). A dashed column outline (`{.dashed}`) is a stroke style, not a third colour. Markup: [md-deck](https://github.com/yohei1126/agent-skills/blob/main/md-deck/SKILL.md).
+- An ordinary dashed edge (`..>`, `-.[label].->`) uses the arrow colour (`--color-flow-arrow`, navy `#073365` on `dark-blue`).
+- Gap emphasis uses the accent (`--color-edge-gap`, `#F7581D` on `dark-blue`) only when that dashed edge has `[style=gap]`. The shaft is `0.5px` thicker than the arrow shaft, and the dash is tighter. Markup: [md-deck](https://github.com/yohei1126/agent-skills/blob/main/md-deck/SKILL.md).
+- A `{.dashed}` card outline uses `--color-dashed-outline` and `--dashed-outline-width`. On `dark-blue` the colour is the secondary accent `#1A6B7A` and the width is `2.5px` when the token is omitted. Plain is `#333333` at `2px`. Those defaults are darker and thicker than the earlier card-border dash. A deck overrides `color_dashed_outline` and `dashed_outline_width`. Markup: [md-deck](https://github.com/yohei1126/agent-skills/blob/main/md-deck/SKILL.md).
 
 ## How consumers apply
 
 - **md-deck.** Select theme `dark-blue` in `deck_style`. The theme CSS lives in md-deck. This skill does not ship that CSS. Authoring rules: [md-deck](https://github.com/yohei1126/agent-skills/blob/main/md-deck/SKILL.md).
-- **Articles and image generation.** Pass these HEX values and roles into the image prompt for a cover or a diagram. Keep the ground off-white, the structure navy, the accent for a gap or a highlight, and the secondary accent for a section label.
+- **Articles and image generation.** Pass these HEX values and roles into the image prompt for a cover or a diagram. Keep the ground off-white, the structure navy (including an ordinary dash), the accent for a gap emphasis or a highlight, and the secondary accent for a section label and for a dashed card outline.
 
 ## Sources
 
