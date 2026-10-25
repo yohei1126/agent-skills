@@ -35,9 +35,13 @@ agent_skills/
 │   ├── SKILL.md                       # Skill definition (frontmatter + agent instructions)
 │   └── scripts/
 │       └── convert.ts                # pdftotext-based PDF converter
-└── english-tech-blog-structure/
-    ├── SKILL.md                       # Skill definition (frontmatter + agent instructions)
-    └── NOTICE                         # Apache-2.0 attribution (getsentry/skills)
+├── english-tech-blog-structure/
+│   ├── SKILL.md                       # Skill definition (frontmatter + agent instructions)
+│   └── NOTICE                         # Apache-2.0 attribution (getsentry/skills)
+├── linkedin-article/
+│   └── SKILL.md                       # Skill definition (frontmatter + agent instructions)
+└── devto-article/
+    └── SKILL.md                       # Skill definition (frontmatter + agent instructions)
 ```
 
 ## Available skills
@@ -80,6 +84,14 @@ npx tsx pdf-to-markdown/scripts/convert.ts <input.pdf> [output.md]
 ### english-tech-blog-structure
 
 Structure guide for English technical blog posts (openings, headings, technical quality, titles, closings). Pairs with [blader/humanizer](https://github.com/blader/humanizer) for sentence-level AI tells. Adapted from getsentry/skills `blog-writing-guide` (Apache-2.0); see `english-tech-blog-structure/NOTICE`.
+
+### linkedin-article
+
+Draft and revise English LinkedIn technical articles (Pulse) and feed posts. Pairs with `english-tech-blog-structure` and [blader/humanizer](https://github.com/blader/humanizer).
+
+### devto-article
+
+Write, revise, and draft-register English technical articles for [dev.to](https://dev.to). Pairs with `english-tech-blog-structure` and [blader/humanizer](https://github.com/blader/humanizer).
 
 ## Setup
 

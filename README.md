@@ -10,6 +10,8 @@ A collection of reusable agent skills following the [Agent Skills open standard]
 | [confluence-operations](confluence-operations/) | Upload a local Markdown file to Confluence, or download a Confluence page to Markdown |
 | [sales-agent](sales-agent/) | Sales intelligence skill — query deals, pipeline, rep performance, and conversation transcripts via Cortex Agent/Analyst |
 | [english-tech-blog-structure](english-tech-blog-structure/) | Structure guide for English technical blog posts; pairs with [blader/humanizer](https://github.com/blader/humanizer) for sentence-level AI tells |
+| [linkedin-article](linkedin-article/) | Draft and revise English LinkedIn technical articles (Pulse) and feed posts |
+| [devto-article](devto-article/) | Write, revise, and draft-register English technical articles for dev.to |
 | [repo-security-audit](repo-security-audit/) | Audit a repository for security vulnerabilities using Cloudflare's open-source security-audit skill |
 | [threat-model-attack-review](threat-model-attack-review/) | Periodic attacker-perspective review: STRIDE threat model plus executable attack scenarios |
 
