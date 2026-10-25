@@ -22,7 +22,8 @@ Palette: [presentation-color](../presentation-color/SKILL.md).
 - Read left to right, then top to bottom. Show a clear start.
 - Use few shape types. Keep lines from crossing or overlapping.
 - Do not carry meaning by colour alone. Pair a colour with a label or a shape.
-- Prefer a short node label. When a branch gets hard to follow, split it into more than one diagram.
+- Prefer a short node label on a new diagram. When a branch gets hard to follow, split it into more than one diagram.
+- When rebuilding a figure from a transcript or other source, the source wording wins over a length cap. Wrap with a newline. Do not cut a sentence, and do not drop a note or a side arrow, only to meet a cap such as ≤12. On an md-deck label the newline is `\n`.
 - Centre the figure as one group. Put a box that relates to one other box directly under or beside it.
 - Draw an arrow straight when its two ends line up. Every arrow needs a visible shaft; an arrowhead alone reads as a triangle.
 - Keep each label next to what it names. Do not repeat the same words as a group label and an arrow label.

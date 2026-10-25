@@ -65,6 +65,8 @@ Useful style tokens (see md-deck style docs): `page_padding` / `page_padding_*`,
 
 A `::: flow wide` row grows toward `flow_preferred_height` (default `60%` of the slide). Stretching boxes to the full height left under the title is opt-in (`flow_fill_height: fill` or `::: flow fill`). The title stays at the top; the blocks under the title are centred in the space that remains. Layout token names: [VISUAL_POLICY.md](https://github.com/yohei1126/md-deck/blob/main/docs/VISUAL_POLICY.md).
 
+Once md-deck ships the denser defaults, rely on them instead of extra CSS: box text about 18px, cards aligned to the top, a bold Key Message, and lane spread only when the deck opts in. Until that generator is pinned, set those in the deck style.
+
 ## Theme
 
 Palette and when to use `dark-blue` or plain: [presentation-color](../presentation-color/SKILL.md). In `deck_style`, select theme `dark-blue`. Theme CSS is implemented in md-deck. This skill does not repeat the HEX values.
@@ -96,6 +98,8 @@ Count **full-width characters**: one CJK character is 1, one ASCII letter or dig
 
 When these budgets leave whitespace, enlarge the boxes or the type. Do not pad with more words. That sits with “Do not thin the deck into slogans only” under Writing slides.
 
+The caps guide a **new** diagram. When rebuilding an existing deck from a transcript or other source, the source wording wins. Wrap a long label with `\n`. Do not cut a sentence, and do not drop a note or a side arrow, only to meet the ≤12 label cap.
+
 ## Diagram recipes
 
 Principles (reading order, short labels, split a complex branch, text equivalent): [presentation-diagram](../presentation-diagram/SKILL.md). The Markdown shapes stay here. Before/after markup: [DIAGRAMS.md](https://github.com/yohei1126/md-deck/blob/main/docs/DIAGRAMS.md). Buildable sample: [`examples/diagram_patterns.md`](https://github.com/yohei1126/md-deck/blob/main/examples/diagram_patterns.md).
@@ -125,7 +129,7 @@ md-deck build slides.md -o out/deck.pdf --png out/png
 ## Pre-merge review checklist
 
 - Slide count, order, and information density vs the reference PDF or previous version
-- Copy budget: Key Message, box / flow labels (12, including each branch box), captions (20, one line), column headings (about 14), column items, bullets, `::: question` on its own ≤40 budget, and body length with the question excluded
+- Copy budget: Key Message, box / flow labels (12, including each branch box), captions (20, one line), column headings (about 14), column items, bullets, `::: question` on its own ≤40 budget, and body length with the question excluded. On a rebuild from a transcript or other source, the source wording wins: wrap with `\n` instead of cutting to 12
 - Palette follows [presentation-color](../presentation-color/SKILL.md); the theme is selected in `deck_style`.
 - Diagram principles follow [presentation-diagram](../presentation-diagram/SKILL.md).
 - CI: check decks / build PDF succeeded
@@ -146,6 +150,7 @@ md-deck build slides.md -o out/deck.pdf --png out/png
 - Shipping a flow slide whose arrows run into corners
 - Shipping a flow slide with a lone arrowhead (no shaft), a bent arrow between aligned boxes, a diagram hugging the left edge, or a lane label floating away from its boxes
 - Long branch labels in a `{ A / B }` stack, or a cover title no larger than a slide title
+- Cutting source sentences, or dropping notes and side arrows, so a rebuilt diagram meets the 12-character cap
 - A customer-facing deck left on the plain eval theme (see [presentation-color](../presentation-color/SKILL.md))
 - Local md-deck version differs from CI
 - Comparing sources only and skipping the Release / review PDF and the cover / flow PNGs
