@@ -22,21 +22,21 @@ Generic workflow for writing and revising English technical articles for [dev.to
 
 ## DEV front matter
 
-Example YAML at the top of the file:
+Example YAML at the top of the article, or in a separate meta file (see Cross-posting):
 
 ```yaml
 ---
 title: Specific claim or payoff
 published: false
-tags: neo4j, knowledgegraph, llm, cypher, ontology
+tags: neo4j, knowledgegraph, llm, cypher
 canonical_url: https://www.linkedin.com/pulse/...
 series: Ontographia
 ---
 ```
 
 - Drafts must keep `published: false`. Only the owner flips the flag or hits publish
-- `tags` are lowercase English, following site conventions; keep the count modest (about 4–5)
-- When the piece already published elsewhere, set `canonical_url` to the canonical URL (for example the earlier LinkedIn article)
+- `tags` are lowercase English, following site conventions. Aim for up to 4 tags for API registration. Forem/Dev.to create accepts at most 4 tags. If a fifth is desired for humans, note it in the file only; it cannot be sent on create
+- When the piece already published elsewhere, set `canonical_url` to that first URL (for a LinkedIn cross-post, the LinkedIn Pulse URL)
 - For a series, use `series` so it appears in DEV's series feature
 
 ## Titles and slugs
@@ -61,15 +61,25 @@ Common order:
 
 1. Publish on LinkedIn
 2. Wait a few days, then post on DEV
-3. Set DEV `canonical_url` to the LinkedIn article
+3. Set DEV `canonical_url` to the first-published LinkedIn Pulse URL
 4. Keep claims, numbers, and how limits are stated aligned; change only channel greetings and series UI
 
+Series TOC links for published parts may keep the LinkedIn Pulse URLs.
+
 If DEV ships first, set `canonical_url` on the later channel to the URL that published first.
+
+### Meta-only layout
+
+For a LinkedIn → DEV cross-post, the LinkedIn article Markdown can remain the canonical body. Registration metadata may live separately (for example `devto/<series>/YYYY-MM-DD-….yml`) with `title`, `published: false`, `tags`, `canonical_url`, `series`, and `source` pointing at the LinkedIn path. Do not require a full copy of the article under `devto/`.
 
 ## Drafting via the API
 
 - Do this only when the owner asks to register a draft on DEV
-- Create unpublished (draft) only. Do not call a publish API
+- Create unpublished (draft) only. Do not call a publish API. Keep `published: false`
+- Send at most 4 tags. A fifth noted for humans stays out of the create payload
+- A repo may provide a script (example name `scripts/devto_payload.py`) that prints API JSON from the meta file and the LinkedIn source. The script does not call the API. Registration is a separate step, still with `published: false`
+- Before creating, check `GET /api/articles/me/unpublished` for an existing draft of the same piece
+- After create, verify with `GET /api/articles/me/unpublished`, and confirm the article is not in published (`GET /api/articles/me/published`). A public `GET /api/articles/{id}` can 404 while the article is unpublished
 - After registration, give the owner the draft URL or ID and leave publishing to them
 
 ## Honesty
@@ -83,6 +93,6 @@ If DEV ships first, set `canonical_url` on the later channel to the URL that pub
 ## Success criteria
 
 - Passed `english-tech-blog-structure` and `humanizer`
-- Front matter matches the shape above (at least `published: false`)
+- Front matter or separate meta matches the shape above (`published: false`; at most 4 tags on the API payload)
 - For a cross-post, `canonical_url` points at the earlier URL
 - Includes at least one of: trade-offs, measured results, a failure story, or reproduction steps
