@@ -1,28 +1,28 @@
 ---
 name: devto-article
-description: dev.to 向けの英語技術記事を書く・直す・下書き登録するとき。API キーや特定 bot の運用は含めない。
+description: Write, revise, or draft-register English technical articles for dev.to. Do not include API keys or bot-specific ops.
 ---
-# dev.to 記事
+# dev.to articles
 
-dev.to（https://dev.to）向けの英語技術記事を書く・直すときの一般手順。API キーの置き場、リポジトリのパス、使うモデルなど、環境固有の運用は各アシスタント側の共通ルールに置く。
+Generic workflow for writing and revising English technical articles for [dev.to](https://dev.to). Put environment-specific ops—API key storage, repo paths, which model to use—in each assistant's shared rules, not here.
 
-## いつ読むか
+## When to use
 
-- 新しい dev.to 記事を書く
-- LinkedIn など他媒体の英語記事を dev.to 向けに適応する
-- 非公開下書きとして API 登録する前後の点検
+- Write a new dev.to article
+- Adapt an English article from another channel (for example LinkedIn) for dev.to
+- Check a draft before or after registering it as an unpublished draft via the API
 
-## 文章規範（英語）
+## English writing rules
 
-1. 本文は英語。
-2. 執筆・推敲の前に次の二つを読む。
-   - `english-tech-blog-structure` … 構成、見出し、タイトル、締め、技術的誠実さ
-   - `humanizer` … 文単位の AI 口調の除去
-3. LinkedIn と内容を共有する場合も、媒体ごとの制約（見出し、カバー画像、シリーズ）だけ差し替え、主張と数字は一致させる。
+1. Body language is English.
+2. Before drafting or revising, read both of these:
+   - `english-tech-blog-structure` — structure, headings, titles, closings, technical honesty
+   - `humanizer` — strip sentence-level AI tells
+3. When the same piece also goes to LinkedIn, keep claims and numbers aligned; change only channel constraints (headings, cover image, series UI).
 
-## front matter（DEV）
+## DEV front matter
 
-ファイル先頭の YAML 例:
+Example YAML at the top of the file:
 
 ```yaml
 ---
@@ -34,55 +34,55 @@ series: Ontographia
 ---
 ```
 
-- 下書きは必ず `published: false`。公開フラグを立てる・公開ボタンを押すのは所有者
-- `tags` はサイトの慣例に合わせた英小文字。多すぎない（目安 4〜5）
-- 他媒体で先に公開した記事を載せるときは `canonical_url` に正規 URL（先に出した LinkedIn 記事など）を入れる
-- 連載なら `series` を使い、dev.to のシリーズ機能に載せる
+- Drafts must keep `published: false`. Only the owner flips the flag or hits publish
+- `tags` are lowercase English, following site conventions; keep the count modest (about 4–5)
+- When the piece already published elsewhere, set `canonical_url` to the canonical URL (for example the earlier LinkedIn article)
+- For a series, use `series` so it appears in DEV's series feature
 
-## タイトル・slug
+## Titles and slugs
 
-- タイトルは具体的な主張または得られる結果。曖昧な発表調を避ける
-- タイトルと URL slug にバージョン番号を入れない
-- 連載なら Part N をタイトルに入れてよい
+- Titles should state a concrete claim or payoff. Avoid vague launch phrasing
+- Do not put version numbers in the title or URL slug
+- For a series, Part N in the title is fine
 
-## 記事の型
+## Article shape
 
-`english-tech-blog-structure` に従う。dev.to 向けの追加点:
+Follow `english-tech-blog-structure`. DEV-specific extras:
 
-- 冒頭 2〜3 文で問題または結論。メタな予告文で始めない
-- 連載なら冒頭にシリーズ位置づけ（他部へのリンク）を置く
-- 一般読者向けでは個別 PR より Release・docs・本体リポジトリへのリンクを優先する
-- Markdown の表・コードフェンスは使える。Mermaid は環境依存なので、重要な図は画像または簡潔なテキスト図も用意する
-- カバー画像を使う場合は権利の確認できるものだけ
+- Open with the problem or conclusion in 2–3 sentences. Do not start with meta foreshadowing
+- For a series, place the series position (links to other parts) near the top
+- For a general audience, prefer Releases, docs, and the main repository over individual PRs
+- Markdown tables and fenced code are fine. Mermaid is environment-dependent, so also provide important diagrams as images or short text figures
+- Use a cover image only when rights are clear
 
-## クロスポスト（LinkedIn → dev.to）
+## Cross-posting (LinkedIn → DEV)
 
-よくある順序:
+Common order:
 
-1. LinkedIn で記事を公開する
-2. 数日あけて dev.to に載せる
-3. dev.to 側の `canonical_url` を LinkedIn 記事にする
-4. 本文の主張・数字・限界の書き方を揃える。媒体の挨拶やシリーズ UI だけ変える
+1. Publish on LinkedIn
+2. Wait a few days, then post on DEV
+3. Set DEV `canonical_url` to the LinkedIn article
+4. Keep claims, numbers, and how limits are stated aligned; change only channel greetings and series UI
 
-逆順（dev.to が先）にする場合は、後から出す側の `canonical_url` を先に出した URL にする。
+If DEV ships first, set `canonical_url` on the later channel to the URL that published first.
 
-## API で下書きを置くとき
+## Drafting via the API
 
-- 所有者から「dev.to に下書き登録して」と頼まれたときだけ行う
-- 作成は未公開（draft）に限定する。公開 API を叩かない
-- 登録後は下書き URL または ID を所有者に渡し、公開は所有者に任せる
+- Do this only when the owner asks to register a draft on DEV
+- Create unpublished (draft) only. Do not call a publish API
+- After registration, give the owner the draft URL or ID and leave publishing to them
 
-## 誠実さ
+## Honesty
 
-- 誇張しない。限界も書く
-- 数字は測定ログや公開ソースにあるものだけ
-- 未確定の公開日を約束しない
-- コンサル的な CTA を入れない
-- 確認していないことを確認したように書かない
+- Do not exaggerate. State limits
+- Use numbers only from measurement logs or public sources
+- Do not promise unconfirmed publish dates
+- Do not add consulting-style CTAs
+- Do not write as if you verified something you did not verify
 
-## 成功の目安
+## Success criteria
 
-- `english-tech-blog-structure` と `humanizer` を通している
-- front matter が上記の型に合う（少なくとも `published: false`）
-- クロスポストなら `canonical_url` が先公開の URL になっている
-- トレードオフ、実測、失敗談、再現手順のどれかがある
+- Passed `english-tech-blog-structure` and `humanizer`
+- Front matter matches the shape above (at least `published: false`)
+- For a cross-post, `canonical_url` points at the earlier URL
+- Includes at least one of: trade-offs, measured results, a failure story, or reproduction steps
