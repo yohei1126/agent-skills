@@ -2,8 +2,9 @@
 name: md-deck
 description: >-
   Use when creating or revising slide decks with md-deck (Markdown → PDF):
-  workflow, style vs content split, spacing density, review before tag/release,
-  and common failure modes. Do not put customer names or proposal content here.
+  workflow, style vs content split, spacing density, copy budgets, diagram
+  recipes, cover-title breaks, review before tag/release, and common failure
+  modes. Do not put customer names or proposal content here.
 ---
 # md-deck slide decks
 
@@ -23,9 +24,9 @@ Content and visual style live in the **deck repository**, not in md-deck. md-dec
 
 1. Lock scope in a brief (for example `deck_inputs/` or hearing notes): slide count, goal of each slide, and any forbidden claims.
 2. Write `deck/*.md` (or the deck’s paths). Front matter must name `style` (and optional CSS) per md-deck’s contract.
-3. Run `md-deck check`, then build the PDF with the **same pinned md-deck version** locally and in CI.
+3. Run `md-deck check`, then build the PDF with the **same pinned md-deck version** locally and in CI. Check enforces the cover-title rules; it does not enforce the copy budget below.
 4. Open a PR and wait for CI green (`check` / build PDF).
-5. On the PR branch, rebuild the PDF and attach the PDF plus comparison images for review **before** merge.
+5. On the PR branch, rebuild with `md-deck build --png`. Attach the PDF plus the cover PNG and every flow slide for review **before** merge.
 6. Merge and tag **only after** the owner has OK’d the PDF. Agents must not merge or cut tags on their own.
 
 ## Releases and tags
@@ -37,7 +38,8 @@ Content and visual style live in the **deck repository**, not in md-deck. md-dec
 
 ## Visual goals
 
-- Aim for a clean NotebookLM-like look when the deck style calls for it: white cards, navy titles, teal question boxes for discussion prompts (tokens live in the deck’s style file).
+- Aim for NotebookLM-like readability through density and short copy: quiet colour, structured information, and a visible bone of boxes and arrows. Tokens stay in the deck’s style file (white cards, navy titles, teal question boxes when that deck calls for them).
+- Leave decoration out of the style CSS: gradients, drop shadows, stickers, and icon collages. Limits and the phased plan: [VISUAL_POLICY.md](https://github.com/yohei1126/md-deck/blob/main/docs/VISUAL_POLICY.md).
 - Generation is deterministic: same inputs → same layout. Do not use NotebookLM slide generation for these PDFs.
 - Within one venture family, keep design and style guides aligned; only domain terms change.
 
@@ -64,13 +66,51 @@ Useful style tokens (see md-deck style docs): `page_padding` / `page_padding_*`,
 - Each slide: one goal, plus evidence / figure / question. Do not thin the deck into slogans only.
 - For discussion decks, keep explicit discussion questions (`::: question` or the deck’s agreed pattern).
 - Use only md-deck-supported constructs (`---` slides, one `#` title, Key Message, `::: columns` / `::: flow` / `::: source`, tables, hard breaks). See [INPUT_FORMAT.md](https://github.com/yohei1126/md-deck/blob/main/docs/INPUT_FORMAT.md).
-- Prefer column / flow / card / table structures that match the approved prototype or previous lunch deck.
+- Prefer the diagram recipes, copy budget, and cover-title rules below. Match column / flow / card / table structures to the approved prototype or previous lunch deck when one exists.
+
+## Copy budget
+
+Authoring checklist. `md-deck check` still accepts a dense slide; the generator fails only when the slide overflows after scaling to 80% ([VISUAL_POLICY.md](https://github.com/yohei1126/md-deck/blob/main/docs/VISUAL_POLICY.md)).
+
+Count **full-width characters**: one CJK character is 1, one ASCII letter or digit is 0.5. That unit is separate from cover-title display width, where a wide character counts as 2.
+
+| Piece | Budget |
+| :--- | :--- |
+| Key Message | 1 sentence, ≤40 full-width characters |
+| Box / flow label | ≤12 full-width characters. A label is a name: no sentence-final `。`, and no choice packed into one label (`AまたはB`) |
+| `::: columns` | 3 items per column, ≤15 full-width characters each. Same sentence pattern on the left and the right. Bullets inside panels; no paragraphs |
+| Bullet body | ≤3 items per slide, 1 sentence each |
+| `::: question` | 1 sentence |
+| Slide body | Excluding the title and `::: source`, aim for ≤150 full-width characters. Split the slide when the body runs over |
+
+## Diagram recipes
+
+Use the Markdown recipes. Before/after markup: [DIAGRAMS.md](https://github.com/yohei1126/md-deck/blob/main/docs/DIAGRAMS.md). Buildable sample: [`examples/diagram_patterns.md`](https://github.com/yohei1126/md-deck/blob/main/examples/diagram_patterns.md).
+
+- **2-box compare:** `::: columns panel` with parallel short bullets.
+- **3-step row:** `::: flow wide` with name-length labels.
+- **Branch:** a `{ A / B }` stack, plus a separate edge into each member. `Start -> { A / B }` draws a single arrow into the middle of the stack.
+
+Photos, logos, and maps may be images. Boxes and arrows stay in these recipes.
+
+## Cover titles
+
+Break a wrapping cover title only with `\n` in the H1 (`# First phrase\nSecond phrase`). A trailing `\` does not continue an ATX heading. Break on a phrase boundary, and keep the two lines balanced. `md-deck check` enforces the structural rules. Thresholds: [VISUAL_POLICY.md](https://github.com/yohei1126/md-deck/blob/main/docs/VISUAL_POLICY.md).
+
+The check’s width estimate is not Chromium. After check, render PNGs and read the cover:
+
+```bash
+md-deck build slides.md -o out/deck.pdf --png out/png
+```
 
 ## Pre-merge review checklist
 
 - Slide count, order, and information density vs the reference PDF or previous version
+- Copy budget: Key Message, labels, columns, bullets, `::: question`, and body length
 - CI: check decks / build PDF succeeded
 - Layout: not overly sparse; cover and diagrams not crushed
+- Cover PNG: phrase-boundary breaks only, lines balanced (`md-deck build --png`)
+- Every flow slide PNG: arrows meet an edge of the box. An arrow into a corner fails review
 - Forbidden premises from the brief are not still on the slides
 - Local and CI md-deck versions match
 
@@ -78,19 +118,24 @@ Useful style tokens (see md-deck style docs): `page_padding` / `page_padding_*`,
 
 - Generator or style “fixes” make premises correct but add whitespace so the deck feels emptier
 - Replacing a figure with a thin table leaves large empty regions
+- Sentence-length node labels, paragraphs inside a `::: columns panel`, or a branch written as one `AまたはB` label
+- Cover title wrapped mid-phrase, or split with a trailing backslash instead of `\n`
+- Shipping a flow slide whose arrows run into corners
 - Local md-deck version differs from CI
-- Comparing sources only and skipping the Release / review PDF
+- Comparing sources only and skipping the Release / review PDF and the cover / flow PNGs
 - Cutting a tag before the owner reviews the PDF
 - Adding a deck `CHANGELOG.md` (skip; use PR description and Release notes)
 
 ## Verification notes
 
-- If GitHub Actions artifacts are unavailable, rebuild on a box with the PR head and the pinned md-deck, and say so in the report.
+- If GitHub Actions artifacts are unavailable, rebuild on a box with the PR head and the pinned md-deck, and say so in the report. Include the cover PNG and every flow slide (`md-deck build --png`).
 - Page rasters and side-by-side PNGs work well for visual diffs.
 
 ## Success criteria
 
 - Brief (count, goals, forbids) honored
+- Copy budget, diagram recipes, and cover-title breaks followed
 - Style and content split respected; wording unchanged when the ask was visual-only
 - Same pinned md-deck in check/build locally and in CI
+- Cover PNG and every flow slide reviewed (`md-deck build --png`); an arrow into a corner is a failed review
 - PDF attached for review before merge/tag; owner OK before release
