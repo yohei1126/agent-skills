@@ -78,10 +78,13 @@ Count **full-width characters**: one CJK character is 1, one ASCII letter or dig
 | :--- | :--- |
 | Key Message | 1 sentence, ≤40 full-width characters |
 | Box / flow label | ≤12 full-width characters. A label is a name: no sentence-final `。`, and no choice packed into one label (`AまたはB`) |
-| `::: columns` | 3 items per column, ≤15 full-width characters each. Same sentence pattern on the left and the right. Bullets inside panels; no paragraphs |
+| Column heading | About 14 full-width characters. A `::: columns` heading is not a box / flow label, so the 12-character label rule does not apply |
+| `::: columns` items | 3 items per column, ≤15 full-width characters each. Same sentence pattern on the left and the right. Bullets inside panels; no paragraphs |
 | Bullet body | ≤3 items per slide, 1 sentence each |
-| `::: question` | 1 sentence |
-| Slide body | Excluding the title and `::: source`, aim for ≤150 full-width characters. Split the slide when the body runs over |
+| `::: question` | 1 sentence, ≤40 full-width characters. Own budget: leave it out of the slide-body count |
+| Slide body | Excluding the title, `::: source`, and `::: question`, aim for ≤150 full-width characters. Split the slide when the body runs over |
+
+When these budgets leave whitespace, enlarge the boxes or the type. Do not pad with more words. That sits with “Do not thin the deck into slogans only” under Writing slides.
 
 ## Diagram recipes
 
@@ -106,7 +109,7 @@ md-deck build slides.md -o out/deck.pdf --png out/png
 ## Pre-merge review checklist
 
 - Slide count, order, and information density vs the reference PDF or previous version
-- Copy budget: Key Message, labels, columns, bullets, `::: question`, and body length
+- Copy budget: Key Message, box / flow labels (12), column headings (about 14), column items, bullets, `::: question` on its own ≤40 budget, and body length with the question excluded
 - CI: check decks / build PDF succeeded
 - Layout: not overly sparse; cover and diagrams not crushed
 - Cover PNG: phrase-boundary breaks only, lines balanced (`md-deck build --png`)
@@ -118,7 +121,8 @@ md-deck build slides.md -o out/deck.pdf --png out/png
 
 - Generator or style “fixes” make premises correct but add whitespace so the deck feels emptier
 - Replacing a figure with a thin table leaves large empty regions
-- Sentence-length node labels, paragraphs inside a `::: columns panel`, or a branch written as one `AまたはB` label
+- Sentence-length node labels, a column heading held to the 12-character box-label cap, paragraphs inside a `::: columns panel`, or a branch written as one `AまたはB` label
+- Filling budget whitespace with extra words instead of enlarging the boxes or the type
 - Cover title wrapped mid-phrase, or split with a trailing backslash instead of `\n`
 - Shipping a flow slide whose arrows run into corners
 - Local md-deck version differs from CI
