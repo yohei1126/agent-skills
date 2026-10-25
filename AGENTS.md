@@ -40,7 +40,9 @@ agent_skills/
 │   └── NOTICE                         # Apache-2.0 attribution (getsentry/skills)
 ├── linkedin-article/
 │   └── SKILL.md                       # Skill definition (frontmatter + agent instructions)
-└── devto-article/
+├── devto-article/
+│   └── SKILL.md                       # Skill definition (frontmatter + agent instructions)
+└── md-deck/
     └── SKILL.md                       # Skill definition (frontmatter + agent instructions)
 ```
 
@@ -92,6 +94,10 @@ Draft and revise English LinkedIn technical articles (Pulse) and feed posts. Pai
 ### devto-article
 
 Write, revise, and draft-register English technical articles for [dev.to](https://dev.to). Pairs with `english-tech-blog-structure` and [blader/humanizer](https://github.com/blader/humanizer).
+
+### md-deck
+
+Create and revise 16:9 PDF slide decks with md-deck: workflow, style versus content, spacing density, and review before tag or release. Instructions: [md-deck/SKILL.md](md-deck/SKILL.md).
 
 ## Setup
 
