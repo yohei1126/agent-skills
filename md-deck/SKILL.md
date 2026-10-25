@@ -4,11 +4,12 @@ description: >-
   Use when creating or revising slide decks with md-deck (Markdown → PDF):
   workflow, style vs content split, spacing density, copy budgets, diagram
   recipes, cover-title breaks, review before tag/release, and common failure
-  modes. Do not put customer names or proposal content here.
+  modes. Independent of any one deck or subject. Do not put customer names,
+  proposal content, or a brand palette here.
 ---
 # md-deck slide decks
 
-Reusable practice for building 16:9 PDF slide decks with [md-deck](https://github.com/yohei1126/md-deck). Put environment-specific bot ops elsewhere. Never invent unsupported Markdown directives.
+Reusable practice for building 16:9 PDF slide decks with [md-deck](https://github.com/yohei1126/md-deck). The rules below apply to any deck. Put environment-specific bot ops, customer names, and proposal claims elsewhere. Never invent unsupported Markdown directives.
 
 ## Roles
 
@@ -22,7 +23,7 @@ Content and visual style live in the **deck repository**, not in md-deck. md-dec
 
 ## Recommended workflow
 
-1. Lock scope in a brief (for example `deck_inputs/` or hearing notes): slide count, goal of each slide, and any forbidden claims.
+1. Lock scope in a brief: slide count, goal of each slide, and any forbidden claims.
 2. Write `deck/*.md` (or the deck’s paths). Front matter must name `style` (and optional CSS) per md-deck’s contract.
 3. Run `md-deck check`, then build the PDF with the **same pinned md-deck version** locally and in CI. Check enforces the cover-title rules; it does not enforce the copy budget below.
 4. Open a PR and wait for CI green (`check` / build PDF).
@@ -31,21 +32,21 @@ Content and visual style live in the **deck repository**, not in md-deck. md-dec
 
 ## Releases and tags
 
-- Deck repos do **not** use semver for decks. Prefer tags like `YYYYMMDD-HHMM-marker` (example: `20261024-2315-lunch`).
+- Deck repos do **not** use semver for decks. Prefer tags like `YYYYMMDD-HHMM-marker` (example: `20261024-2315-topic`).
 - Legacy tags such as `deck-v1.0.0` may remain; new tags should use timestamp + marker.
-- If several decks ship for the same lunch or pack, put **both PDFs on one Release** from one tag (shape CI accordingly).
+- If several decks ship together, put their PDFs on one Release from one tag (shape CI accordingly).
 - Attach PDFs to the **deck** repository’s Release, never to the md-deck generator repo.
 
 ## Visual goals
 
-- Aim for NotebookLM-like readability through density and short copy: quiet colour, structured information, and a visible bone of boxes and arrows. Tokens stay in the deck’s style file (white cards, navy titles, teal question boxes when that deck calls for them).
+- Aim for NotebookLM-like readability through density and short copy: quiet colour, structured information, and a visible bone of boxes and arrows. Colours live in that deck’s style file.
 - Leave decoration out of the style CSS: gradients, drop shadows, stickers, and icon collages. Limits and the phased plan: [VISUAL_POLICY.md](https://github.com/yohei1126/md-deck/blob/main/docs/VISUAL_POLICY.md).
 - Generation is deterministic: same inputs → same layout. Do not use NotebookLM slide generation for these PDFs.
-- Within one venture family, keep design and style guides aligned; only domain terms change.
+- Decks that share a style guide keep that guide. Change the subject terms, not the visual system.
 
 ## Where style lives
 
-- Colours, spacing, fonts: deck-side `deck_style.md` (YAML tokens + optional fenced `css` targeting [HOOKS.md](https://github.com/yohei1126/md-deck/blob/main/docs/HOOKS.md)).
+- Colours, spacing, fonts: deck-side `deck_style.md` (YAML tokens + optional fenced `css` targeting [HOOKS.md](https://github.com/yohei1126/md-deck/blob/main/docs/HOOKS.md)). A deck style may add a cover frame. This skill does not prescribe a brand.
 - To fix a sparse layout **without** changing wording, prefer style / CSS / layout structure over rewriting prose.
 - In Japanese prose about outputs, prefer the phrase for “slide materials” over “deck”; keep the product name `md-deck` and paths like `deck_style.md` / `deck/` unchanged.
 
@@ -66,7 +67,7 @@ Useful style tokens (see md-deck style docs): `page_padding` / `page_padding_*`,
 - Each slide: one goal, plus evidence / figure / question. Do not thin the deck into slogans only.
 - For discussion decks, keep explicit discussion questions (`::: question` or the deck’s agreed pattern).
 - Use only md-deck-supported constructs (`---` slides, one `#` title, Key Message, `::: columns` / `::: flow` / `::: source`, tables, hard breaks). See [INPUT_FORMAT.md](https://github.com/yohei1126/md-deck/blob/main/docs/INPUT_FORMAT.md).
-- Prefer the diagram recipes, copy budget, and cover-title rules below. Match column / flow / card / table structures to the approved prototype or previous lunch deck when one exists.
+- Prefer the diagram recipes, copy budget, and cover-title rules below. When a prototype or an earlier deck in the same series exists, match its column / flow / card / table structures.
 
 ## Copy budget
 
