@@ -1,105 +1,105 @@
 ---
 name: linkedin-article
-description: LinkedIn の英語技術記事（Pulse）やフィード投稿の下書きを書く・直すとき。リポジトリ名・モデル名・特定 bot の運用は含めない。
+description: Draft or revise English LinkedIn technical articles (Pulse) and feed posts. Do not include repo names, model names, or bot-specific ops.
 ---
-# LinkedIn 記事・投稿
+# LinkedIn articles and posts
 
-LinkedIn 向けの英語技術記事（長文 / Pulse）とフィード投稿の下書きを書く・直すときの一般手順。リポジトリのパス、使うモデル、どの worker が本文を書くかなど、環境固有の運用は各アシスタント側の共通ルールに置く。
+Generic workflow for drafting and revising English technical LinkedIn articles (long-form / Pulse) and feed posts. Put environment-specific ops—repo paths, which model to use, which worker writes the body—in each assistant's shared rules, not here.
 
-## いつ読むか
+## When to use
 
-- LinkedIn の長文記事を書く・推敲する
-- 同じ題材のフィード投稿（告知文）を書く
-- Zenn など他媒体の記事を LinkedIn 向け英語に適応する
+- Write or polish a LinkedIn long-form article
+- Write a feed post that announces the same topic
+- Adapt an article from another channel (for example Zenn) into LinkedIn English
 
-## 文章規範（英語）
+## English writing rules
 
-1. 本文は英語を基本とする（所有者が日本語を明示したときだけ日本語）。
-2. 執筆・推敲の前に次の二つを読む。
-   - `english-tech-blog-structure` … 構成、見出し、タイトル、締め、技術的誠実さ
-   - `humanizer` … 文単位の AI 口調の除去
-3. レビュー依頼の前に、新規または大きく直した草稿へ両方を適用する。
+1. Default the body to English (Japanese only when the owner explicitly asks for Japanese).
+2. Before drafting or revising, read both of these:
+   - `english-tech-blog-structure` — structure, headings, titles, closings, technical honesty
+   - `humanizer` — strip sentence-level AI tells
+3. Before asking for review, apply both to any new or substantially revised draft.
 
-## ファイルの型
+## File shape
 
-命名の目安:
+Naming guide:
 
 ```text
 YYYY-MM-DD-slug-{article|post}.en.md
 ```
 
-| 接尾辞 | 役割 |
+| Suffix | Role |
 | :--- | :--- |
-| `-article.en.md` | 長文記事本文 |
-| `-post.en.md` | フィード投稿（同じ日付・slug の article と対にする） |
+| `-article.en.md` | Long-form article body |
+| `-post.en.md` | Feed post (pair with the same date and slug as the article) |
 
-- Zenn 用の front matter（`title` / `emoji` / `type` / `topics` など）を付けない
-- Markdown のみで管理する。Google Doc にしない
-- 既存の本文は、所有者が明示して直すと言ったとき以外は書き換えない
+- Do not add Zenn-style front matter (`title` / `emoji` / `type` / `topics`, and so on)
+- Keep Markdown only; do not turn the draft into a Google Doc
+- Do not rewrite existing body text unless the owner explicitly asked for edits
 
-## LinkedIn エディタへの制約
+## LinkedIn editor constraints
 
-原稿は Markdown のまま LinkedIn の編集画面へ貼る前提で書く。
+Write the draft so it can be pasted into LinkedIn's editor as Markdown.
 
-- 表・HTML・Mermaid を使わない（貼り付け後に崩れる）
-- 記事本文の ``` フェンスは自動変換されない。コードは LinkedIn の Code ボタンで手入力する必要がある、と所有者に渡すときに一言添える
-- フィード投稿にはコード書式がない。コードは記事側に置き、投稿では触れないか、一行の説明に留める
-- 画像は記事公開後に UI で足す想定でよい。下書きでは必要最小限の図を ASCII / プレーンテキストにする
+- Do not use tables, HTML, or Mermaid (they break after paste)
+- Fenced ``` code blocks in the article body are not auto-converted. When handing the draft to the owner, note that code must be entered with LinkedIn's Code button
+- Feed posts have no code formatting. Keep code in the article; in the post, omit it or use one plain-language line
+- Images can be added in the UI after publish. In the draft, keep diagrams to a minimum as ASCII or plain text
 
-## 長文記事の型
+## Long-form article shape
 
-`english-tech-blog-structure` に従う。LinkedIn 向けの追加点:
+Follow `english-tech-blog-structure`. LinkedIn-specific extras:
 
-### 冒頭
+### Opening
 
-問題または結論を最初の 2〜3 文で書く。「In this post we will explore…」で始めない。
+State the problem or conclusion in the first 2–3 sentences. Do not open with "In this post we will explore…".
 
-### 連載
+### Series
 
-- 連載なら冒頭にシリーズ概要（blockquote など）を置く。各部のタイトル、フォーカス、前後リンク、本体リポ / docs へのリンク
-- 未公開の後続へのリンクはプレースホルダ（例: `[LINK TO PART 3]`）にし、公開後に差し替える
-- 一般読者向けでは個別 PR へのリンクより、Release・docs・本体リポジトリを優先する
+- For a series, put a short series overview near the top (for example a blockquote): part titles, focus, links to earlier/later parts, and links to the main repo or docs
+- Links to unpublished later parts stay as placeholders (for example `[LINK TO PART 3]`) until those parts ship
+- For a general audience, prefer Releases, docs, and the main repository over links to individual PRs
 
-### 見出しと締め
+### Headings and closing
 
-- 見出しは節が答える問い、または扱う対象。「Background」「Conclusion」だけにしない
-- 締めは docs / ソース / 試す方法 / 具体的なフィードバック依頼。直前の要約の繰り返しで終わらない
-- コンサル的な CTA を入れない
+- Headings should name the question the section answers or the object it covers. Avoid bare labels like "Background" or "Conclusion"
+- Close with docs / source / how to try it / a concrete ask for feedback. Do not end by restating the previous summary
+- Do not add consulting-style CTAs
 
-## フィード投稿の型
+## Feed post shape
 
-- 3〜8 短段落。記事の論点を先に置き、詳細は記事リンクへ誘導する
-- Ontographia など固有名詞だけの読者を想定しない。知らない人向けの一行説明を入れる
-- 末尾に記事 URL（またはプレースホルダ）とリポジトリ URL
-- ハッシュタグは末尾に数個（例: `#Neo4j #KnowledgeGraph`）。本文中に散らさない
-- 絵文字の多用、煽り、未確定の公開日の約束をしない
+- 3–8 short paragraphs. Lead with the article's point, then send readers to the article link for detail
+- Do not assume readers know proper nouns (for example Ontographia). Add a one-line explanation for newcomers
+- End with the article URL (or a placeholder) and the repository URL
+- Put a few hashtags at the end only (for example `#Neo4j #KnowledgeGraph`). Do not scatter them through the body
+- Avoid heavy emoji use, hype, and promises of unconfirmed publish dates
 
-## タイトル・slug
+## Titles and slugs
 
-- タイトルは具体的な主張、物語、または得られる結果を示す。曖昧な発表調（「Introducing X」）を避ける
-- タイトルと slug にバージョン番号を入れない（バージョンは本文で触る）
-- 連載ならタイトルに Part N を入れてよい
+- Titles should state a concrete claim, story, or payoff. Avoid vague launch phrasing ("Introducing X")
+- Do not put version numbers in the title or slug (mention versions in the body if needed)
+- For a series, Part N in the title is fine
 
-## 誠実さ
+## Honesty
 
-- 誇張しない。限界・プロトタイプ・ベータも書く
-- 数字は測定ログや公開ソースにあるものだけ。1 回計測なら one-run と書く
-- 未確定の公開日を約束しない
-- 確認していないことを確認したように書かない
+- Do not exaggerate. State limits, prototype status, and beta where they apply
+- Use numbers only from measurement logs or public sources. If it was a single run, say one-run
+- Do not promise unconfirmed publish dates
+- Do not write as if you verified something you did not verify
 
-## 公開の一般手順（人間）
+## Typical human publish steps
 
-1. Markdown をレビューして確定する
-2. LinkedIn の記事エディタへ本文を貼り、コードブロックなどを手で整える
-3. 公開する
-4. フィード投稿を出し、記事 URL を埋め込む
-5. 連載なら既存記事の「Upcoming」やプレースホルダリンクを更新する
+1. Review and lock the Markdown
+2. Paste the body into LinkedIn's article editor and fix code blocks by hand
+3. Publish
+4. Post the feed update with the article URL
+5. For a series, update "Upcoming" sections or placeholder links on earlier articles
 
-エージェントは下書きと修正まで。投稿・公開ボタンは所有者が押す。
+Agents stop at draft and revision. The owner presses publish.
 
-## 成功の目安
+## Success criteria
 
-- `english-tech-blog-structure` の構成と `humanizer` の点検を通している
-- ファイル名が article / post の型に合う
-- 表・HTML・Mermaid が無い
-- トレードオフ、実測、失敗談、再現手順のどれかがある
+- Passed `english-tech-blog-structure` structure and `humanizer` checks
+- Filenames match the article / post pattern
+- No tables, HTML, or Mermaid
+- Includes at least one of: trade-offs, measured results, a failure story, or reproduction steps
