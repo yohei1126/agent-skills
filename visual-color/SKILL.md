@@ -45,9 +45,9 @@ Area split: about 60% background, about 30% text and structure, about 10% accent
 - **md-deck.** Select theme `dark-blue` in `deck_style`. The theme CSS lives in md-deck. This skill does not ship that CSS.
 - **Articles and image generation.** Pass these HEX values and roles into the image prompt for a cover or a diagram. Keep the ground off-white, the structure navy, and a single accent.
 
-## Sources / 参考
+## Sources
 
 - [Theme color samples](https://ppt.design4u.jp/theme-color-samples/) — dark-blue HEX roles. The site is closed; use the [Wayback snapshot](https://web.archive.org/web/2024/https://ppt.design4u.jp/theme-color-samples/).
 - [PowerPoint color schemes](https://deckary.com/blog/powerpoint-color-schemes) — navy, gray, and one accent (60-30-10).
 - [Slide accessibility guidance](https://www.cctl.cam.ac.uk/slide-accessibility-guidance) — avoid a pure white background; prefer navy on off-white.
-- [デジタル庁｜カラー](https://design.digital.go.jp/dads/foundations/color/) — token roles.
+- [Digital Agency design system: color](https://design.digital.go.jp/dads/foundations/color/) — token roles.

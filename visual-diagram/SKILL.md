@@ -37,10 +37,10 @@ Palette: [visual-color](../visual-color/SKILL.md).
 - **md-deck.** Keep the generator recipes in [md-deck](../md-deck/SKILL.md): `::: columns panel` for a 2-box compare, `::: flow wide` for a 3-step row, and a branch as separate edges into a stack. Markup: [DIAGRAMS.md](https://github.com/yohei1126/md-deck/blob/main/docs/DIAGRAMS.md). Do not invent a new diagram language.
 - **Articles.** Draw the same reading order and the same short labels. Follow the figure with the list or headings that restate it.
 
-## Sources / 参考
+## Sources
 
 - [Diagram design (ONS Service Manual)](https://service-manual.ons.gov.uk/brand-guidelines/application/diagram-design) — primary: reading order, a clear start, few shapes, lines that do not overlap.
-- [デジタル庁｜画像](https://design.digital.go.jp/dads/components/image/) — do not convey critical information by the image alone.
+- [Digital Agency design system: images](https://design.digital.go.jp/dads/components/image/) — do not convey critical information by the image alone.
 - [Charts and flowcharts (UMass Dartmouth)](https://www.umassd.edu/accessibility/digital-accessibility/charts/) — give a flowchart a text equivalent.
 - [Flowchart accessibility (MNIT)](https://mn.gov/mnit/about-mnit/accessibility/news/?id=38-436349) — split a complex flow; provide an alt or text version.
 
@@ -48,4 +48,4 @@ Palette: [visual-color](../visual-color/SKILL.md).
 
 Not part of the source list above.
 
-- [プレゼンテーション指導指針 (IEICE WIT)](https://www.ieice.org/~wit/guidelines/index02.html) — delivery checklist for a spoken presentation.
+- [IEICE WIT presentation guidelines](https://www.ieice.org/~wit/guidelines/index02.html) — delivery checklist for a spoken presentation.

@@ -88,7 +88,7 @@ Count **full-width characters**: one CJK character is 1, one ASCII letter or dig
 | Piece | Budget |
 | :--- | :--- |
 | Key Message | 1 sentence, ≤40 full-width characters |
-| Box / flow label | ≤12 full-width characters. A label is a name: no sentence-final `。`, and no choice packed into one label (`AまたはB`). This holds for each member of a `{ A / B }` branch stack too |
+| Box / flow label | ≤12 full-width characters. A label is a name: no sentence-final ideographic full stop, and no choice packed into one label (an "A or B" label). This holds for each member of a `{ A / B }` branch stack too |
 | Box caption (after `\|`) | 1 short line, ≤20 full-width characters. Move the detail into the speaker script, not into the box |
 | Column heading | About 14 full-width characters. A `::: columns` heading is not a box / flow label, so the 12-character label rule does not apply |
 | `::: columns` items | 3 items per column, ≤15 full-width characters each. Same sentence pattern on the left and the right. Bullets inside panels; no paragraphs |
@@ -144,7 +144,7 @@ md-deck build slides.md -o out/deck.pdf --png out/png
 
 - Generator or style “fixes” make premises correct but add whitespace so the deck feels emptier
 - Replacing a figure with a thin table leaves large empty regions
-- Sentence-length node labels, a column heading held to the 12-character box-label cap, paragraphs inside a `::: columns panel`, or a branch written as one `AまたはB` label
+- Sentence-length node labels, a column heading held to the 12-character box-label cap, paragraphs inside a `::: columns panel`, or a branch written as one "A or B" label
 - Filling budget whitespace with extra words instead of enlarging the boxes or the type
 - Cover title wrapped mid-phrase, or split with a trailing backslash instead of `\n`
 - Shipping a flow slide whose arrows run into corners
