@@ -1,5 +1,5 @@
 ---
-name: presentation-color
+name: visual-color
 description: >-
   Use when any visual needs a professional palette: md-deck theme selection,
   article cover images, inline diagrams, or generated images (Zenn, LinkedIn,
@@ -7,11 +7,11 @@ description: >-
   black is for eval and regression only. Do not put customer names or subject
   claims here.
 ---
-# Presentation color
+# Visual color
 
 Shared palette for professional visuals. The same tokens apply to slide decks and to article covers, diagrams, and generated images. This skill names the colours and when to use them. It does not ship CSS. It is independent of any one deck, article, or subject.
 
-Process and structure rules for those figures: [presentation-diagram](../presentation-diagram/SKILL.md).
+Process and structure rules for those figures: [visual-diagram](../visual-diagram/SKILL.md).
 
 ## When to use
 

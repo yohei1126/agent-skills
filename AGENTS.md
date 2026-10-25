@@ -97,15 +97,15 @@ Write, revise, and draft-register English technical articles for [dev.to](https:
 
 ### md-deck
 
-Create and revise 16:9 PDF slide decks with md-deck: workflow, style versus content, spacing density, and review before tag or release. Palette: [presentation-color](presentation-color/SKILL.md). Diagram principles: [presentation-diagram](presentation-diagram/SKILL.md). Instructions: [md-deck/SKILL.md](md-deck/SKILL.md).
+Create and revise 16:9 PDF slide decks with md-deck: workflow, style versus content, spacing density, and review before tag or release. Palette: [visual-color](visual-color/SKILL.md). Diagram principles: [visual-diagram](visual-diagram/SKILL.md). Instructions: [md-deck/SKILL.md](md-deck/SKILL.md).
 
-### presentation-color
+### visual-color
 
-Shared `dark-blue` palette for md-deck themes, article covers, inline diagrams, and generated images. Instructions: [presentation-color/SKILL.md](presentation-color/SKILL.md).
+Shared `dark-blue` palette for md-deck themes, article covers, inline diagrams, and generated images. Instructions: [visual-color/SKILL.md](visual-color/SKILL.md).
 
-### presentation-diagram
+### visual-diagram
 
-Reading order, short labels, and a text equivalent for process and structure figures on slides and in articles. Instructions: [presentation-diagram/SKILL.md](presentation-diagram/SKILL.md).
+Reading order, short labels, and a text equivalent for process and structure figures on slides and in articles. Instructions: [visual-diagram/SKILL.md](visual-diagram/SKILL.md).
 
 ## Setup
 

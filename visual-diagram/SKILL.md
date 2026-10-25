@@ -1,16 +1,16 @@
 ---
-name: presentation-diagram
+name: visual-diagram
 description: >-
   Use when a figure shows a process or a structure: an md-deck flow or
   columns, or an article diagram or cover. Reading order, short labels,
   split complex branches, and a text equivalent. Palette lives in
-  presentation-color. Do not put customer names or subject claims here.
+  visual-color. Do not put customer names or subject claims here.
 ---
-# Presentation diagram
+# Visual diagram
 
 Authoring rules for a process or structure figure, on a slide or in an article. This skill does not ship CSS. It is independent of any one deck, article, or subject.
 
-Palette: [presentation-color](../presentation-color/SKILL.md).
+Palette: [visual-color](../visual-color/SKILL.md).
 
 ## When to use
 

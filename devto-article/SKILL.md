@@ -54,7 +54,7 @@ Follow `english-tech-blog-structure`. DEV-specific extras:
 - For a general audience, prefer Releases, docs, and the main repository over individual PRs
 - Markdown tables and fenced code are fine. Mermaid is environment-dependent, so also provide important diagrams as images or short text figures
 - Use a cover image only when rights are clear
-- Covers and diagrams: load `presentation-color` and `presentation-diagram`.
+- Covers and diagrams: load `visual-color` and `visual-diagram`.
 
 ## Cross-posting (LinkedIn → DEV)
 

@@ -4,8 +4,8 @@ description: >-
   Use when creating or revising slide decks with md-deck (Markdown → PDF):
   workflow, style vs content split, spacing density, copy budgets, diagram
   recipes, cover-title breaks, review before tag/release, and common failure
-  modes. Palette: presentation-color. Diagram principles:
-  presentation-diagram. Independent of any
+  modes. Palette: visual-color. Diagram principles:
+  visual-diagram. Independent of any
   one deck or subject. Do not put customer names, proposal content, or HEX
   colours here.
 ---
@@ -21,12 +21,12 @@ Reusable practice for building 16:9 PDF slide decks with [md-deck](https://githu
 | Deck repo | e.g. a project docs repo | Slides Markdown, `deck_style.md`, optional CSS, Release PDFs |
 | `examples/` in md-deck | md-deck only | Samples. Do not treat as production deck sources |
 
-Slide words live in the **deck repository**. The deck repo still supplies a style file. Palette and when to use it live in [presentation-color](../presentation-color/SKILL.md). Theme CSS is implemented in md-deck. This skill does not copy HEX values or a customer brand.
+Slide words live in the **deck repository**. The deck repo still supplies a style file. Palette and when to use it live in [visual-color](../visual-color/SKILL.md). Theme CSS is implemented in md-deck. This skill does not copy HEX values or a customer brand.
 
 ## Recommended workflow
 
 1. Lock scope in a brief: slide count, goal of each slide, and any forbidden claims.
-2. Write `deck/*.md` (or the deck’s paths). Front matter must name `style` (and optional CSS) per md-deck’s contract. Select the theme in `deck_style` as [presentation-color](../presentation-color/SKILL.md) describes.
+2. Write `deck/*.md` (or the deck’s paths). Front matter must name `style` (and optional CSS) per md-deck’s contract. Select the theme in `deck_style` as [visual-color](../visual-color/SKILL.md) describes.
 3. Run `md-deck check`, then build the PDF with the **same pinned md-deck version** locally and in CI. Check enforces the cover-title rules; it does not enforce the copy budget below.
 4. Open a PR and wait for CI green (`check` / build PDF).
 5. On the PR branch, rebuild with `md-deck build --png`. Attach the PDF plus the cover PNG and every flow slide for review **before** merge.
@@ -41,14 +41,14 @@ Slide words live in the **deck repository**. The deck repo still supplies a styl
 
 ## Visual goals
 
-- Aim for NotebookLM-like readability through density and short copy: quiet colour, structured information, and a visible bone of boxes and arrows. The palette is [presentation-color](../presentation-color/SKILL.md).
+- Aim for NotebookLM-like readability through density and short copy: quiet colour, structured information, and a visible bone of boxes and arrows. The palette is [visual-color](../visual-color/SKILL.md).
 - Leave decoration out of the style CSS: gradients, drop shadows, stickers, and icon collages. Limits and the phased plan: [VISUAL_POLICY.md](https://github.com/yohei1126/md-deck/blob/main/docs/VISUAL_POLICY.md).
 - Generation is deterministic: same inputs → same layout. Do not use NotebookLM slide generation for these PDFs.
 - Decks that share a style guide keep that guide. Change the subject terms, not the visual system.
 
 ## Where style lives
 
-- Spacing, fonts, and optional CSS: deck-side `deck_style.md` (YAML tokens + optional fenced `css` targeting [HOOKS.md](https://github.com/yohei1126/md-deck/blob/main/docs/HOOKS.md)). A deck style may add a cover frame. Select theme `dark-blue` there; the palette rules are [presentation-color](../presentation-color/SKILL.md). Theme CSS stays in md-deck.
+- Spacing, fonts, and optional CSS: deck-side `deck_style.md` (YAML tokens + optional fenced `css` targeting [HOOKS.md](https://github.com/yohei1126/md-deck/blob/main/docs/HOOKS.md)). A deck style may add a cover frame. Select theme `dark-blue` there; the palette rules are [visual-color](../visual-color/SKILL.md). Theme CSS stays in md-deck.
 - To fix a sparse layout **without** changing wording, prefer style / CSS / layout structure over rewriting prose.
 - In Japanese prose about outputs, prefer the phrase for “slide materials” over “deck”; keep the product name `md-deck` and paths like `deck_style.md` / `deck/` unchanged.
 
@@ -69,7 +69,7 @@ Once md-deck ships the denser defaults, rely on them instead of extra CSS: box t
 
 ## Theme
 
-Palette and when to use `dark-blue` or plain: [presentation-color](../presentation-color/SKILL.md). In `deck_style`, select theme `dark-blue`. Theme CSS is implemented in md-deck. This skill does not repeat the HEX values.
+Palette and when to use `dark-blue` or plain: [visual-color](../visual-color/SKILL.md). In `deck_style`, select theme `dark-blue`. Theme CSS is implemented in md-deck. This skill does not repeat the HEX values.
 
 ## Writing slides
 
@@ -77,7 +77,7 @@ Palette and when to use `dark-blue` or plain: [presentation-color](../presentati
 - Each slide: one goal, plus evidence / figure / question. Do not thin the deck into slogans only.
 - For discussion decks, keep explicit discussion questions (`::: question` or the deck’s agreed pattern).
 - Use only md-deck-supported constructs (`---` slides, one `#` title, Key Message, `::: columns` / `::: flow` / `::: source`, tables, hard breaks). See [INPUT_FORMAT.md](https://github.com/yohei1126/md-deck/blob/main/docs/INPUT_FORMAT.md).
-- Prefer the diagram recipes, copy budget, and cover-title rules below. Reading order and when to split a figure: [presentation-diagram](../presentation-diagram/SKILL.md). When a prototype or an earlier deck in the same series exists, match its column / flow / card / table structures.
+- Prefer the diagram recipes, copy budget, and cover-title rules below. Reading order and when to split a figure: [visual-diagram](../visual-diagram/SKILL.md). When a prototype or an earlier deck in the same series exists, match its column / flow / card / table structures.
 
 ## Copy budget
 
@@ -102,7 +102,7 @@ The caps guide a **new** diagram. When rebuilding an existing deck from a transc
 
 ## Diagram recipes
 
-Principles (reading order, short labels, split a complex branch, text equivalent): [presentation-diagram](../presentation-diagram/SKILL.md). The Markdown shapes stay here. Before/after markup: [DIAGRAMS.md](https://github.com/yohei1126/md-deck/blob/main/docs/DIAGRAMS.md). Buildable sample: [`examples/diagram_patterns.md`](https://github.com/yohei1126/md-deck/blob/main/examples/diagram_patterns.md).
+Principles (reading order, short labels, split a complex branch, text equivalent): [visual-diagram](../visual-diagram/SKILL.md). The Markdown shapes stay here. Before/after markup: [DIAGRAMS.md](https://github.com/yohei1126/md-deck/blob/main/docs/DIAGRAMS.md). Buildable sample: [`examples/diagram_patterns.md`](https://github.com/yohei1126/md-deck/blob/main/examples/diagram_patterns.md).
 
 - **2-box compare:** `::: columns panel` with parallel short bullets.
 - **3-step row:** `::: flow wide` with name-length labels.
@@ -130,8 +130,8 @@ md-deck build slides.md -o out/deck.pdf --png out/png
 
 - Slide count, order, and information density vs the reference PDF or previous version
 - Copy budget: Key Message, box / flow labels (12, including each branch box), captions (20, one line), column headings (about 14), column items, bullets, `::: question` on its own ≤40 budget, and body length with the question excluded. On a rebuild from a transcript or other source, the source wording wins: wrap with `\n` instead of cutting to 12
-- Palette follows [presentation-color](../presentation-color/SKILL.md); the theme is selected in `deck_style`.
-- Diagram principles follow [presentation-diagram](../presentation-diagram/SKILL.md).
+- Palette follows [visual-color](../visual-color/SKILL.md); the theme is selected in `deck_style`.
+- Diagram principles follow [visual-diagram](../visual-diagram/SKILL.md).
 - CI: check decks / build PDF succeeded
 - Layout: not overly sparse; cover and diagrams not crushed
 - Cover PNG: title about 1.5× a slide title and using the vertical space; phrase-boundary breaks only; lines balanced (`md-deck build --png`)
@@ -151,7 +151,7 @@ md-deck build slides.md -o out/deck.pdf --png out/png
 - Shipping a flow slide with a lone arrowhead (no shaft), a bent arrow between aligned boxes, a diagram hugging the left edge, or a lane label floating away from its boxes
 - Long branch labels in a `{ A / B }` stack, or a cover title no larger than a slide title
 - Cutting source sentences, or dropping notes and side arrows, so a rebuilt diagram meets the 12-character cap
-- A customer-facing deck left on the plain eval theme (see [presentation-color](../presentation-color/SKILL.md))
+- A customer-facing deck left on the plain eval theme (see [visual-color](../visual-color/SKILL.md))
 - Local md-deck version differs from CI
 - Comparing sources only and skipping the Release / review PDF and the cover / flow PNGs
 - Cutting a tag before the owner reviews the PDF
@@ -166,8 +166,8 @@ md-deck build slides.md -o out/deck.pdf --png out/png
 
 - Brief (count, goals, forbids) honored
 - Copy budget, diagram recipes, and cover-title breaks followed
-- Palette follows [presentation-color](../presentation-color/SKILL.md)
-- Diagram principles follow [presentation-diagram](../presentation-diagram/SKILL.md)
+- Palette follows [visual-color](../visual-color/SKILL.md)
+- Diagram principles follow [visual-diagram](../visual-diagram/SKILL.md)
 - Style and content split respected; wording unchanged when the ask was visual-only
 - Same pinned md-deck in check/build locally and in CI
 - Cover PNG and every flow slide reviewed (`md-deck build --png`); an arrow into a corner is a failed review

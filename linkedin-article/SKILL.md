@@ -45,7 +45,7 @@ Write the draft so it can be pasted into LinkedIn's editor as Markdown.
 - Fenced ``` code blocks in the article body are not auto-converted. When handing the draft to the owner, note that code must be entered with LinkedIn's Code button
 - Feed posts have no code formatting. Keep code in the article; in the post, omit it or use one plain-language line
 - Images can be added in the UI after publish. In the draft, keep diagrams to a minimum as ASCII or plain text
-- Covers and diagrams: load `presentation-color` and `presentation-diagram`.
+- Covers and diagrams: load `visual-color` and `visual-diagram`.
 
 ## Long-form article shape
 
