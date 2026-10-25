@@ -3,15 +3,16 @@ name: visual-color
 description: >-
   Use when any visual needs a professional palette: md-deck theme selection,
   article cover images, inline diagrams, or generated images (Zenn, LinkedIn,
-  Dev.to, and slide decks). Canonical palette is dark-blue. Plain white and
-  black is for eval and regression only. Do not put customer names or subject
-  claims here.
+  Dev.to, and slide decks). Canonical palette is dark-blue. A dashed
+  secondary outline and an eyebrow use the structure colour, not the accent.
+  Plain white and black is for eval and regression only. Do not put customer
+  names or subject claims here.
 ---
 # Visual color
 
 Shared palette for professional visuals. The same tokens apply to slide decks and to article covers, diagrams, and generated images. This skill names the colours and when to use them. It does not ship CSS. It is independent of any one deck, article, or subject.
 
-Process and structure rules for those figures: [visual-diagram](../visual-diagram/SKILL.md).
+Process and structure rules for those figures: [visual-diagram](https://github.com/yohei1126/agent-skills/blob/main/visual-diagram/SKILL.md). Slide markup: [md-deck](https://github.com/yohei1126/agent-skills/blob/main/md-deck/SKILL.md).
 
 ## When to use
 
@@ -39,10 +40,11 @@ Area split: about 60% background, about 30% text and structure, about 10% accent
 
 - Customer-facing decks, and public article covers and diagrams, use `dark-blue`.
 - Plain white and black is for evaluation and visual regression only. Do not use it for a customer-facing or public visual.
+- An eyebrow and a `{.dashed}` secondary outline use the text or structure colour (navy). They do not use the accent. The accent stays the small highlight. Markup: [md-deck](https://github.com/yohei1126/agent-skills/blob/main/md-deck/SKILL.md).
 
 ## How consumers apply
 
-- **md-deck.** Select theme `dark-blue` in `deck_style`. The theme CSS lives in md-deck. This skill does not ship that CSS.
+- **md-deck.** Select theme `dark-blue` in `deck_style`. The theme CSS lives in md-deck. This skill does not ship that CSS. Authoring rules: [md-deck](https://github.com/yohei1126/agent-skills/blob/main/md-deck/SKILL.md).
 - **Articles and image generation.** Pass these HEX values and roles into the image prompt for a cover or a diagram. Keep the ground off-white, the structure navy, and a single accent.
 
 ## Sources

@@ -3,14 +3,16 @@ name: visual-diagram
 description: >-
   Use when a figure shows a process or a structure: an md-deck flow or
   columns, or an article diagram or cover. Reading order, short labels,
-  split complex branches, and a text equivalent. Palette lives in
-  visual-color. Do not put customer names or subject claims here.
+  a step number outside the name, one dashed gap, a muted secondary
+  outline, content-sized compare cards, split complex branches, and a
+  text equivalent. Palette lives in visual-color. Markup lives in
+  md-deck. Do not put customer names or subject claims here.
 ---
 # Visual diagram
 
 Authoring rules for a process or structure figure, on a slide or in an article. This skill does not ship CSS. It is independent of any one deck, article, or subject.
 
-Palette: [visual-color](../visual-color/SKILL.md).
+Palette: [visual-color](https://github.com/yohei1126/agent-skills/blob/main/visual-color/SKILL.md). Slide markup: [md-deck](https://github.com/yohei1126/agent-skills/blob/main/md-deck/SKILL.md).
 
 ## When to use
 
@@ -27,15 +29,18 @@ Palette: [visual-color](../visual-color/SKILL.md).
 - Centre the figure as one group. Put a box that relates to one other box directly under or beside it.
 - Draw an arrow straight when its two ends line up. Every arrow needs a visible shaft; an arrowhead alone reads as a triangle.
 - Keep each label next to what it names. Do not repeat the same words as a group label and an arrow label.
-- Put a gap or a break on the connection where it happens, between the two parties.
+- Put a step number outside the name: a badge, or an automatic index in reading order. Write a circled digit in the name only when the source name already includes it. One index per box.
+- Put a gap on the connection where it happens: one dashed link between the two parties, with the annotation on that link. That link is the emphasis. Other connections stay solid. Do not draw the gap as another box.
+- A secondary layer uses a muted dashed outline plus a label. The outline is structure, not the accent, and it is not the missing-step link.
+- In a compare, keep each card as tall as its content. Do not stretch a short card, and do not thin the body copy, to make the row look dense.
 - When a box stands for something that lives somewhere (evidence, data, documents), say where.
 - Put important information in the text as well as in the figure. The diagram is not the only copy of a fact.
 - In an article, add a linear equivalent in reading order: a list or headings.
 
 ## How consumers apply
 
-- **md-deck.** Keep the generator recipes in [md-deck](../md-deck/SKILL.md): `::: columns panel` for a 2-box compare, `::: flow wide` for a 3-step row, and a branch as separate edges into a stack. Markup: [DIAGRAMS.md](https://github.com/yohei1126/md-deck/blob/main/docs/DIAGRAMS.md). Do not invent a new diagram language.
-- **Articles.** Draw the same reading order and the same short labels. Follow the figure with the list or headings that restate it.
+- **md-deck.** Keep the generator recipes in [md-deck](https://github.com/yohei1126/agent-skills/blob/main/md-deck/SKILL.md): `::: columns panel` for a 2-box compare, `::: flow wide` for a 3-step row, a branch as separate edges into a stack, a number badge or `steps` for the index, one dashed link for a gap, and `{.dashed}` for a secondary outline. Markup: [DIAGRAMS.md](https://github.com/yohei1126/md-deck/blob/main/docs/DIAGRAMS.md). Do not invent a new diagram language.
+- **Articles.** Draw the same reading order, the same short labels, one index outside the name, one dashed gap, and a muted secondary outline. Keep compare cards content-sized. Follow the figure with the list or headings that restate it.
 
 ## Sources
 
