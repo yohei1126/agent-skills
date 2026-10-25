@@ -13,6 +13,7 @@ A collection of reusable agent skills following the [Agent Skills open standard]
 | [linkedin-article](linkedin-article/) | Draft and revise English LinkedIn technical articles (Pulse) and feed posts |
 | [devto-article](devto-article/) | Write, revise, and draft-register English technical articles for dev.to |
 | [md-deck](md-deck/) | Create/revise slide decks with md-deck (workflow, style vs content, spacing, review before release) |
+| [visual-color](visual-color/) | Shared dark-blue palette for decks, article covers, and diagrams |
 | [repo-security-audit](repo-security-audit/) | Audit a repository for security vulnerabilities using Cloudflare's open-source security-audit skill |
 | [threat-model-attack-review](threat-model-attack-review/) | Periodic attacker-perspective review: STRIDE threat model plus executable attack scenarios |
 

@@ -97,7 +97,11 @@ Write, revise, and draft-register English technical articles for [dev.to](https:
 
 ### md-deck
 
-Create and revise 16:9 PDF slide decks with md-deck: workflow, style versus content, spacing density, and review before tag or release. Instructions: [md-deck/SKILL.md](md-deck/SKILL.md).
+Create and revise 16:9 PDF slide decks with md-deck: workflow, style versus content, spacing density, and review before tag or release. Palette: [visual-color](visual-color/SKILL.md). Instructions: [md-deck/SKILL.md](md-deck/SKILL.md).
+
+### visual-color
+
+Shared `dark-blue` palette for md-deck themes, article covers, inline diagrams, and generated images. Instructions: [visual-color/SKILL.md](visual-color/SKILL.md).
 
 ## Setup
 
