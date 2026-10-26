@@ -15,9 +15,10 @@ Generic workflow for writing and revising English technical articles for [dev.to
 ## English writing rules
 
 1. Body language is English.
-2. Before drafting or revising, read both of these:
+2. Before drafting or revising, read:
    - `english-tech-blog-structure` — structure, headings, titles, closings, technical honesty
    - `humanizer` — strip sentence-level AI tells
+   - `llm-evaluation` — when the draft cites eval or LLM measurement numbers
 3. When the same piece also goes to LinkedIn, keep claims and numbers aligned; change only channel constraints (headings, cover image, series UI).
 
 ## DEV front matter

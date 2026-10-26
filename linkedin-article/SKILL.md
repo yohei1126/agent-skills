@@ -18,7 +18,8 @@ Generic workflow for drafting and revising English technical LinkedIn articles (
 2. Before drafting or revising, read both of these:
    - `english-tech-blog-structure` — structure, headings, titles, closings, technical honesty
    - `humanizer` — strip sentence-level AI tells
-3. Before asking for review, apply both to any new or substantially revised draft.
+3. When the draft cites eval or LLM measurement numbers, also read and apply `llm-evaluation`.
+4. Before asking for review, apply these to any new or substantially revised draft.
 
 ## File shape
 
@@ -84,7 +85,7 @@ State the problem or conclusion in the first 2–3 sentences. Do not open with "
 ## Honesty
 
 - Do not exaggerate. State limits, prototype status, and beta where they apply
-- Use numbers only from measurement logs or public sources. If it was a single run, say one-run
+- Use numbers only from measurement logs or public sources. If it was a single run, say one-run. For eval or LLM measurements, follow `llm-evaluation`
 - Do not promise unconfirmed publish dates
 - Do not write as if you verified something you did not verify
 
