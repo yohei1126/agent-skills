@@ -10,6 +10,7 @@ A collection of reusable agent skills following the [Agent Skills open standard]
 | [confluence-operations](confluence-operations/) | Upload a local Markdown file to Confluence, or download a Confluence page to Markdown |
 | [sales-agent](sales-agent/) | Sales intelligence skill — query deals, pipeline, rep performance, and conversation transcripts via Cortex Agent/Analyst |
 | [english-tech-blog-structure](english-tech-blog-structure/) | Structure guide for English technical blog posts; pairs with [blader/humanizer](https://github.com/blader/humanizer) for sentence-level AI tells |
+| [llm-evaluation](llm-evaluation/) | Report LLM and pipeline eval numbers honestly: sample size, exact conditions, no invented figures |
 | [linkedin-article](linkedin-article/) | Draft and revise English LinkedIn technical articles (Pulse) and feed posts |
 | [devto-article](devto-article/) | Write, revise, and draft-register English technical articles for dev.to |
 | [md-deck](md-deck/) | Create/revise slide decks with md-deck (workflow, style vs content, spacing, review before release) |

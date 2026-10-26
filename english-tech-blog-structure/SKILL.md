@@ -35,7 +35,7 @@ Weak: "Background", "Architecture", "Results", "Conclusion".
 Strong: a heading that names the specific topic or claim, e.g. "Why pre-aggregation destroys debugging context", "Where this breaks down: the cardinality wall".
 
 ## Technical quality
-- Numbers over adjectives: every performance claim carries its number and source. Never invent or round up numbers.
+- Numbers over adjectives: every performance claim carries its number and source. Never invent or round up numbers. When the post cites LLM or pipeline evaluation numbers, read and apply `llm-evaluation`.
 - Code must work: tested, with imports, configuration, and context. Comments explain why, not what.
 - Describe a system with more than two interacting components with a diagram labeled with real component names.
 - Honesty over hype: don't overstate what something does, say when something is a prototype or beta, acknowledge limitations, and credit alternatives that do something well.
@@ -50,6 +50,6 @@ End with something useful: a link to docs or source, a way to try it, or a reque
 A shareable post contains at least one of: a technical decision explained with trade-offs; original data not found elsewhere; a real debugging story with specifics; an honest account of what went wrong; a how-to that saves real time.
 
 ## Review checklist
-Technical: claims accurate, code works, architecture descriptions match the real system, numbers correct, no oversimplification an expert would wince at.
+Technical: claims accurate, code works, architecture descriptions match the real system, numbers correct (LLM and eval figures follow `llm-evaluation`), no oversimplification an expert would wince at.
 Editorial: opening hooks within 2 sentences, passes the share test, no corporate filler, headings informative, length fits (not padded, not thin), title specific.
 When giving feedback, quote the weak passage, say why it is weak, and rewrite it.
