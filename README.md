@@ -13,6 +13,7 @@ A collection of reusable agent skills following the [Agent Skills open standard]
 | [llm-evaluation](llm-evaluation/) | Report LLM and pipeline eval numbers honestly: sample size, exact conditions, no invented figures |
 | [linkedin-article](linkedin-article/) | Draft and revise English LinkedIn technical articles (Pulse) and feed posts |
 | [devto-article](devto-article/) | Write, revise, and draft-register English technical articles for dev.to |
+| [zenn-article](zenn-article/) | Write and revise Japanese technical articles for Zenn, including html-embed HTML/CSS diagrams |
 | [md-deck](md-deck/) | Create/revise slide decks with md-deck (workflow, style vs content, spacing, review before release) |
 | [visual-color](visual-color/) | Shared dark-blue palette for decks, article covers, and diagrams |
 | [visual-diagram](visual-diagram/) | Reading order, short labels, and a text equivalent for process diagrams |

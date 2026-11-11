@@ -44,6 +44,8 @@ agent_skills/
 │   └── SKILL.md                       # Skill definition (frontmatter + agent instructions)
 ├── devto-article/
 │   └── SKILL.md                       # Skill definition (frontmatter + agent instructions)
+├── zenn-article/
+│   └── SKILL.md                       # Skill definition (frontmatter + agent instructions)
 └── md-deck/
     └── SKILL.md                       # Skill definition (frontmatter + agent instructions)
 ```
@@ -100,6 +102,10 @@ Draft and revise English LinkedIn technical articles (Pulse) and feed posts. Pai
 ### devto-article
 
 Write, revise, and draft-register English technical articles for [dev.to](https://dev.to). Pairs with `english-tech-blog-structure` and [blader/humanizer](https://github.com/blader/humanizer).
+
+### zenn-article
+
+Plan, write, and revise Japanese technical articles for [Zenn](https://zenn.dev), including html-embed HTML/CSS diagrams. Instructions: [zenn-article/SKILL.md](zenn-article/SKILL.md).
 
 ### md-deck
 
