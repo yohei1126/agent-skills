@@ -12,7 +12,7 @@
     "turndown": "^7.2.4"
   },
   "devDependencies": {
-    "@types/node": "^24.0.0",
+    "@types/node": "^26.6.6",
     "@types/turndown": "^5.0.5",
     "tsx": "^4.23.15",
     "typescript": "^5.0.0"
